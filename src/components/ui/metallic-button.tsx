@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState, useSyncExternalStore, type MouseEvent } from "react";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
 
+import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 import { cn } from "@/lib/utils";
 
 import { MetallicShaderMount, type MetallicShaderUniforms } from "./metallic-shader";
@@ -37,22 +38,6 @@ const FACE_PRESSED =
 // `mobile-full-width-*` are hooks for section CSS that stretches the button on small screens.
 const SHELL_SIZE = "h-11.5 w-35.5 mobile-full-width-shell";
 const FACE_SIZE = "h-10.5 w-34.5 mobile-full-width-face";
-
-const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
-
-function subscribeToReducedMotion(callback: () => void) {
-  const mediaQueryList = window.matchMedia(REDUCED_MOTION_QUERY);
-  mediaQueryList.addEventListener("change", callback);
-  return () => mediaQueryList.removeEventListener("change", callback);
-}
-
-function usePrefersReducedMotion() {
-  return useSyncExternalStore(
-    subscribeToReducedMotion,
-    () => window.matchMedia(REDUCED_MOTION_QUERY).matches,
-    () => false,
-  );
-}
 
 type MetallicButtonProps = {
   label: string;

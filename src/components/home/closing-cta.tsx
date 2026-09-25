@@ -1,6 +1,6 @@
 import { MetallicButton } from "@/components/ui/metallic-button";
 
-import { ShopGrid, type ShopGridBeam, type ShopGridTile } from "./shop-grid";
+import { ShopGrid, type ShopGridBeam, type ShopGridTile } from "@/components/ui/shop-grid";
 
 // Your shop is the next tile to light up. The mask keeps the grid to the card's edges.
 const ctaTiles: ReadonlyArray<ShopGridTile> = [

@@ -6,7 +6,7 @@ import heroAvatar3 from "@/assets/home/hero-avatar-3.jpg";
 import { DiaText } from "@/components/ui/dia-text";
 
 import { HeroSignup } from "./hero-signup";
-import { ShopGrid, type ShopGridBeam, type ShopGridTile } from "./shop-grid";
+import { ShopGrid, type ShopGridBeam, type ShopGridTile } from "@/components/ui/shop-grid";
 
 const eyebrowAvatars = [heroAvatar1, heroAvatar2, heroAvatar3];
 

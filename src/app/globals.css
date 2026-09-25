@@ -97,6 +97,14 @@
     overscroll-behavior: none;
   }
 
+  /* In-page links glide to their target. Route changes still jump to the top instantly
+     (data-scroll-behavior on <html>, see app/layout.tsx). */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
   /* The design hides scrollbars everywhere (WebKit/Blink). */
   ::-webkit-scrollbar {
     display: none;
@@ -1108,5 +1116,185 @@
     border-radius: 2px;
     outline: 2px solid var(--color-brand-dark);
     outline-offset: 2px;
+  }
+}
+
+/* 9. Features page ---------------------------------------------------------------------------
+ * Feature demo scenes (components/features/scenes). Each `demo-*` class animates an element INTO
+ * its resting style once, `--d` seconds after the scene mounts; the showcase remounts a scene to
+ * replay it. Under reduced motion nothing animates and the finished scene shows (`demo-out` and
+ * `demo-in-out` elements are intermediate states, so they are removed).
+ * Mostly transform/opacity/clip-path; `demo-flash` and `demo-round` repaint only tiny elements.
+ */
+
+@media (prefers-reduced-motion: no-preference) {
+  .demo-in {
+    animation: demo-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s) both;
+  }
+
+  .demo-pop {
+    animation: demo-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) var(--d, 0s) both;
+  }
+
+  .demo-out {
+    animation: demo-out 0.3s ease var(--d, 0s) both;
+  }
+
+  .demo-in-out {
+    animation:
+      demo-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s) both,
+      demo-out 0.3s ease var(--d2, 0s) forwards;
+  }
+
+  .demo-type {
+    animation: demo-type var(--t, 0.8s) steps(var(--s, 12)) var(--d, 0s) both;
+  }
+
+  .demo-grow {
+    transform-origin: left center;
+    animation: demo-grow 0.9s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s) both;
+  }
+
+  .demo-rise {
+    transform-origin: center bottom;
+    animation: demo-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s) both;
+  }
+
+  .demo-draw {
+    animation: demo-draw 1.2s ease-out var(--d, 0s) both;
+  }
+
+  .demo-slide {
+    animation: demo-slide 0.35s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s) both;
+  }
+
+  .demo-press {
+    animation: demo-press 0.35s ease var(--d, 0s);
+  }
+
+  .demo-round {
+    animation: demo-round 0.6s ease var(--d, 0s) both;
+  }
+
+  .demo-flash {
+    animation: demo-flash 0.9s ease var(--d, 0s);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-out,
+  .demo-in-out {
+    display: none;
+  }
+}
+
+/* Lines drawn by `demo-draw` use pathLength="1". */
+.demo-draw {
+  stroke-dasharray: 1;
+}
+
+@keyframes demo-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+@keyframes demo-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+}
+
+@keyframes demo-out {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes demo-type {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+}
+
+@keyframes demo-grow {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes demo-rise {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+@keyframes demo-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+}
+
+/* Tailwind's translate-* utilities set `translate`, so switches slide on that property. */
+@keyframes demo-slide {
+  from {
+    translate: 0 0;
+  }
+}
+
+@keyframes demo-press {
+  50% {
+    transform: scale(0.94);
+  }
+}
+
+@keyframes demo-round {
+  from {
+    border-radius: 3px;
+  }
+}
+
+@keyframes demo-flash {
+  30% {
+    background-color: var(--color-brand-light);
+    color: var(--color-brand-dark);
+  }
+}
+
+/* Live dot (e.g. courier status syncing). */
+.demo-live::after {
+  position: absolute;
+  inset: -3px;
+  border: 1px solid rgba(8, 192, 216, 0.55);
+  border-radius: 50%;
+  content: "";
+  animation: integration-hub-pulse 2.4s ease-out infinite;
+}
+
+/* Showcase tab autoplay timer; its `animationend` advances to the next demo. */
+.showcase-progress {
+  transform-origin: left center;
+  animation: showcase-progress var(--showcase-duration, 7s) linear both;
+}
+
+@keyframes showcase-progress {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+/* Expanded search result. */
+@media (prefers-reduced-motion: no-preference) {
+  .features-row-body {
+    animation: demo-in 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-live::after {
+    animation: none;
   }
 }

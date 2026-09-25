@@ -9,6 +9,7 @@ import { siteConfig } from "@/config/site";
 // TODO: replace the "#" placeholders with real destinations as those pages/accounts exist.
 const LINK_COLUMNS = {
   platform: [
+    { label: "Features", href: "/features" },
     { label: "Start a Page", href: "#" },
     { label: "Login", href: "#" },
     { label: "Leaderboard", href: "#" },

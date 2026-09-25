@@ -34,6 +34,12 @@ export function SiteHeader() {
           </div>
 
           <div className="flex shrink-0 items-center gap-[0.35rem] md:shrink md:gap-6">
+            <Link
+              href="/features"
+              className="hidden rounded-full px-2 py-[0.65rem] text-xs/[1.428571] font-bold whitespace-nowrap text-slate-700 transition-colors hover:bg-white/50 hover:text-slate-900 min-[360px]:inline-block sm:leading-normal md:px-3 md:py-1.5 md:text-base"
+            >
+              Features
+            </Link>
             {/* TODO: point to the dashboard login once it exists. */}
             <Link
               href="#"
