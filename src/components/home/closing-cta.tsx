@@ -1,11 +1,31 @@
 import { MetallicButton } from "@/components/ui/metallic-button";
 
+import { ShopGrid, type ShopGridBeam, type ShopGridTile } from "./shop-grid";
+
+// Your shop is the next tile to light up. The mask keeps the grid to the card's edges.
+const ctaTiles: ReadonlyArray<ShopGridTile> = [
+  { x: -10, y: 1, delay: -2 },
+  { x: -8, y: 6, delay: -7 },
+  { x: -4, y: 0, delay: -4.5 },
+  { x: 3, y: 8, delay: -1 },
+  { x: 7, y: 7, delay: -5.5 },
+  { x: 9, y: 2, delay: -8.5 },
+  { x: 2, y: 0, delay: -3, className: "sm:hidden" },
+];
+
+const ctaBeams: ReadonlyArray<ShopGridBeam> = [
+  { axis: "x", at: 1, delay: -2, duration: 9 },
+  { axis: "x", at: 8, delay: -6, duration: 11 },
+  { axis: "y", at: -9, delay: -4, duration: 8 },
+  { axis: "y", at: 8, delay: -1, duration: 10 },
+];
+
 /** Closing conversion prompt; calendar destination remains intentionally unspecified. */
 export function ClosingCta() {
   return (
-    <section className="relative overflow-hidden px-6 py-24 lg:px-12">
+    <section className="relative overflow-clip px-6 py-24 lg:px-12">
       <div
-        className="relative mx-auto max-w-5xl overflow-hidden rounded-3xl p-10 text-center transition-all duration-500 sm:p-16"
+        className="reveal relative mx-auto max-w-5xl overflow-clip rounded-3xl p-10 text-center transition-all duration-500 sm:p-16"
         style={{
           background:
             "linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(240, 249, 255, 0.75) 50%, rgba(224, 242, 254, 0.8) 100%)",
@@ -16,6 +36,7 @@ export function ClosingCta() {
           borderRadius: "32px",
         }}
       >
+        <ShopGrid tiles={ctaTiles} beams={ctaBeams} className="shop-grid-cta inset-0" />
         <div className="pointer-events-none absolute -top-24 -left-24 size-80 rounded-full bg-brand-cyan/20 blur-3xl" />
         <div className="pointer-events-none absolute -right-24 -bottom-24 size-80 rounded-full bg-brand/20 blur-3xl" />
         <div className="relative z-10 mx-auto flex max-w-2xl flex-col items-center">

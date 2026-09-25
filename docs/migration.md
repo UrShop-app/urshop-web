@@ -29,14 +29,14 @@ the migration is done.
 
 ## Inventory
 
-### Home (`/`) — shell done in `src/app/page.tsx` (aurora background, header, footer)
+### Home (`/`) — shell done in `src/app/page.tsx` (ambient backdrop + hero shop grid, header, footer)
 
 | Section          | Markup (`landing-html.ts`) | Interactivity → client component                                                        | CSS to port (`styles.css`)                                                                                       |
 | ---------------- | -------------------------- | --------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | Hero             | `1. HERO SECTION`          | `DiaText` in the title (replaces `#hero-title-mount`); `MetallicButton href="/pricing"` | `.hero-earning-badge*`, `.brand-name-input::placeholder`, mobile `.hero-signup-*`, `#start-my-shop-button-mount` |
 | How it works     | `2. HOW IT WORKS`          | Connector alignment (`alignHowItWorksPath` in `routes/index.tsx`, ResizeObserver)       | `.how-it-works-*`, `@keyframes how-it-works-*`                                                                   |
 | Shop setup guide | `3. FEATURE DEEP-DIVES`    | none (static video mock)                                                                | —                                                                                                                |
-| Integrations     | `4. PLATFORM INTEGRATIONS` | none (CSS marquee)                                                                      | `.integration-marquee*`, `@keyframes integration-marquee-scroll`                                                 |
+| Integrations     | `4. PLATFORM INTEGRATIONS` | Redesigned (not in Lovable): payments → UrShop hub → delivery diagram                   | `.integration-link`, `.integration-packet`, `.integration-hub`                                                   |
 | Testimonials     | `5. TESTIMONIALS`          | none (CSS marquee)                                                                      | `.testimonial-*`, `@keyframes testimonial-scroll`                                                                |
 | FAQ              | `6. FAQ`                   | Category tabs (`filterFaq`)                                                             | mobile `#faq-tab-container`, `.faq-tab-btn`, `#faqs .overflow-x-auto`                                            |
 | Closing CTA      | `7. CLOSING CTA`           | `MetallicButton href="/pricing"` ("Start Free Trial")                                   | `.book-calendar-button`, mobile `.closing-cta-actions`, `#start-free-trial-button-mount`, `.mobile-full-width-*` |
@@ -62,8 +62,7 @@ When the page ships: add `/pricing` to `src/app/sitemap.ts` and export
   do nothing) and use `<Icon>`.
 - **Glass classes beat utilities.** No-op utilities in the markup include `hover:shadow-glass-hover`
   on `.liquid-glass-card`/`.liquid-pill`, `hover:shadow-2xl` on pricing cards, `hover:bg-white/80` on
-  `.liquid-glass-subtle`. `.integration-marquee-set > .liquid-pill` forces the logo pills to 8rem tall
-  with a 2rem radius, overriding `h-16 rounded-2xl`.
+  `.liquid-glass-subtle`.
 - **Inline styles beat every rule without `!important`.** Keep them as `style={{…}}` or a named
   class; repeated ones on the pricing page (white glass buttons) are worth a shared class.
 - **Mobile overrides are unlayered** and win over `sm:` utilities too, so between 640–767px the
@@ -79,7 +78,11 @@ The design-tool images (`lh3.googleusercontent.com/aida*`) were downloaded unmod
 | Lovable `alt` / use                        | File                                                        |
 | ------------------------------------------ | ----------------------------------------------------------- |
 | Hero eyebrow avatars ("User" ×3, in order) | `home/hero-avatar-1.jpg`, `-2.jpg`, `-3.jpg`                |
-| Integration logos                          | `partners/bkash.png`, `nagad.jpg`, `pathao.png`, `redx.png` |
+| Integration logos                          | `partners/bkash.png`, `nagad.png`, `pathao.png`, `redx.png` |
+
+Two logos were edited for the redesigned Integrations section: `nagad.png` is the original black
+JPG with the background keyed to transparency (the dark tagline dropped), and `redx.png` is cropped
+to the red wordmark badge.
 
 Three of those URLs already return **403** and render as broken images in the Lovable app too:
 the course video preview ("Course Video Lesson Preview"), the presenter photo ("Tanvir Ahmed") and

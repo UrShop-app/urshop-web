@@ -7,12 +7,13 @@ import { cn } from "@/lib/utils";
  * name here before using a new icon (browse them at https://fonts.google.com/icons).
  */
 export const ICON_NAMES = [
-  "add",
+  "account_balance_wallet",
   "arrow_back",
   "auto_awesome",
   "check_circle",
   "contact_support",
   "local_fire_department",
+  "local_shipping",
   "lock",
   "menu_book",
   "schedule",

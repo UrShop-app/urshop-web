@@ -11,7 +11,7 @@
  * 3. Base             → document defaults
  * 4. Glass surfaces   → shared design-system classes (unlayered, see note)
  * 5. Components       → CSS that utilities can't express (keyframes, third-party DOM)
- * 6. Page decoration  → page-level backgrounds
+ * 6. Page decoration  → ambient backdrop, shop grid, scroll reveal, hover lift
  */
 
 /* 1. Theme tokens ------------------------------------------------------------------------ */
@@ -234,60 +234,323 @@
   }
 }
 
-/* 6. Page decoration ------------------------------------------------------------------------- */
+/* 6. Page decoration -------------------------------------------------------------------------
+ * Not in the Lovable build: added deliberately (2026-09) to give the page depth and motion.
+ * CSS-only, no images. Everything animates `transform`/`opacity` only (compositor-friendly) and
+ * holds still under `prefers-reduced-motion`.
+ */
 
-/* Ambient aurora behind the home page. */
-.aurora-bg {
-  position: absolute;
-  inset: 0;
+/* Ambient brand glow (components/layout/ambient-backdrop.tsx). A fixed, viewport-sized layer,
+   so its cost doesn't grow with page length. Orbs drift slowly and, where scroll-driven
+   animations are supported, slide across the viewport as the page scrolls. */
+.ambient-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100lvh;
   overflow: hidden;
   pointer-events: none;
-  z-index: 0;
 }
-.aurora-blob-1 {
+
+.ambient-orb {
   position: absolute;
-  top: -10%;
-  left: 15%;
-  width: 650px;
-  height: 550px;
-  background: radial-gradient(
-    circle,
-    rgba(8, 192, 216, 0.16) 0%,
-    rgba(56, 189, 248, 0.08) 50%,
-    transparent 70%
-  );
-  filter: blur(80px);
   border-radius: 50%;
+  will-change: transform;
 }
-.aurora-blob-2 {
-  position: absolute;
-  top: 5%;
-  right: 10%;
-  width: 600px;
-  height: 500px;
+
+.ambient-orb-1 {
+  top: -22vmax;
+  left: -14vmax;
+  width: 64vmax;
+  height: 64vmax;
   background: radial-gradient(
-    circle,
-    rgba(129, 140, 248, 0.14) 0%,
-    rgba(2, 132, 199, 0.08) 50%,
-    transparent 70%
+    closest-side,
+    rgba(8, 192, 216, 0.09),
+    rgba(8, 192, 216, 0.06) 25%,
+    rgba(8, 192, 216, 0.03) 50%,
+    rgba(8, 192, 216, 0.012) 72%,
+    transparent
   );
-  filter: blur(90px);
-  border-radius: 50%;
+  animation: ambient-drift-1 34s ease-in-out infinite alternate;
 }
-.aurora-blob-3 {
-  position: absolute;
-  top: 45%;
-  left: 30%;
-  width: 750px;
-  height: 550px;
+
+.ambient-orb-2 {
+  top: -14vmax;
+  right: -18vmax;
+  width: 58vmax;
+  height: 58vmax;
   background: radial-gradient(
-    circle,
-    rgba(56, 189, 248, 0.12) 0%,
-    rgba(224, 242, 254, 0.25) 50%,
-    transparent 75%
+    closest-side,
+    rgba(129, 140, 248, 0.07),
+    rgba(129, 140, 248, 0.045) 25%,
+    rgba(2, 132, 199, 0.022) 50%,
+    rgba(2, 132, 199, 0.008) 72%,
+    transparent
   );
-  filter: blur(100px);
+  animation: ambient-drift-2 42s ease-in-out infinite alternate;
+}
+
+.ambient-orb-3 {
+  bottom: -34vmax;
+  left: 12vw;
+  width: 72vmax;
+  height: 72vmax;
+  background: radial-gradient(
+    closest-side,
+    rgba(56, 189, 248, 0.06),
+    rgba(56, 189, 248, 0.04) 25%,
+    rgba(56, 189, 248, 0.02) 50%,
+    rgba(56, 189, 248, 0.008) 72%,
+    transparent
+  );
+  animation: ambient-drift-3 48s ease-in-out infinite alternate;
+}
+
+@keyframes ambient-drift-1 {
+  to {
+    transform: translate3d(8vw, 10vh, 0) scale(1.08);
+  }
+}
+
+@keyframes ambient-drift-2 {
+  to {
+    transform: translate3d(-10vw, 8vh, 0) scale(0.92);
+  }
+}
+
+@keyframes ambient-drift-3 {
+  to {
+    transform: translate3d(-8vw, -8vh, 0) scale(1.06);
+  }
+}
+
+@supports (animation-timeline: scroll()) {
+  .ambient-orb-1 {
+    animation:
+      ambient-drift-1 34s ease-in-out infinite alternate,
+      ambient-scroll-1 linear both;
+    animation-timeline: auto, scroll(root);
+  }
+
+  .ambient-orb-2 {
+    animation:
+      ambient-drift-2 42s ease-in-out infinite alternate,
+      ambient-scroll-2 linear both;
+    animation-timeline: auto, scroll(root);
+  }
+
+  .ambient-orb-3 {
+    animation:
+      ambient-drift-3 48s ease-in-out infinite alternate,
+      ambient-scroll-3 linear both;
+    animation-timeline: auto, scroll(root);
+  }
+}
+
+@keyframes ambient-scroll-1 {
+  to {
+    translate: 46vw 38vh;
+  }
+}
+
+@keyframes ambient-scroll-2 {
+  to {
+    translate: -48vw 30vh;
+  }
+}
+
+@keyframes ambient-scroll-3 {
+  to {
+    translate: 16vw -24vh;
+  }
+}
+
+/* Shop grid (components/home/shop-grid.tsx). Each cell stands for a storefront on the
+   platform: tiles light up like shops going live, and beams run along the lines like orders
+   and payouts moving through it. Columns are counted from the horizontal centre (`--x`), rows
+   from the top (`--y`). The mask is set per placement (`.shop-grid-hero`, `.shop-grid-cta`). */
+.shop-grid {
+  --shop-grid-cell: 48px;
+  --shop-grid-line: rgba(148, 163, 184, 0.17);
+
+  position: absolute;
+  overflow: hidden;
+  container-type: size;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, var(--shop-grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--shop-grid-line) 1px, transparent 1px);
+  background-size: var(--shop-grid-cell) var(--shop-grid-cell);
+  /* Puts a vertical line exactly on the centre: (100% - cell) * 50% + cell / 2 = 50%. */
+  background-position: calc(50% + var(--shop-grid-cell) / 2) 0;
+}
+
+.shop-grid-tile {
+  position: absolute;
+  top: calc(var(--y) * var(--shop-grid-cell) + 1px);
+  left: calc(50% + var(--x) * var(--shop-grid-cell) + 1px);
+  width: calc(var(--shop-grid-cell) - 1px);
+  height: calc(var(--shop-grid-cell) - 1px);
+  background: linear-gradient(135deg, rgba(8, 192, 216, 0.2), rgba(8, 192, 216, 0.05));
+  box-shadow: inset 0 0 0 1px rgba(8, 192, 216, 0.16);
+  opacity: 0;
+  animation: shop-grid-tile 10s ease-in-out var(--delay, 0s) infinite;
+}
+
+@keyframes shop-grid-tile {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  10%,
+  45% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  60%,
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+.shop-grid-beam-x,
+.shop-grid-beam-y {
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation-duration: var(--duration, 9s);
+  animation-timing-function: linear;
+  animation-delay: var(--delay, 0s);
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+}
+
+.shop-grid-beam-x {
+  top: calc(var(--at) * var(--shop-grid-cell));
+  width: 160px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(8, 192, 216, 0.8));
+  animation-name: shop-grid-beam-x;
+}
+
+.shop-grid-beam-y {
+  left: calc(50% + var(--at) * var(--shop-grid-cell));
+  width: 1px;
+  height: 140px;
+  background: linear-gradient(180deg, transparent, rgba(8, 192, 216, 0.8));
+  animation-name: shop-grid-beam-y;
+}
+
+/* Glowing head of the beam. */
+.shop-grid-beam-x::after,
+.shop-grid-beam-y::after {
+  position: absolute;
+  width: 3px;
+  height: 3px;
   border-radius: 50%;
+  background: #08c0d8;
+  box-shadow: 0 0 8px 1px rgba(8, 192, 216, 0.7);
+  content: "";
+}
+
+.shop-grid-beam-x::after {
+  top: -1px;
+  right: -1px;
+}
+
+.shop-grid-beam-y::after {
+  bottom: -1px;
+  left: -1px;
+}
+
+@keyframes shop-grid-beam-x {
+  from {
+    transform: translateX(-100%);
+  }
+  55%,
+  to {
+    transform: translateX(100cqw);
+  }
+}
+
+@keyframes shop-grid-beam-y {
+  from {
+    transform: translateY(-100%);
+  }
+  55%,
+  to {
+    transform: translateY(100cqh);
+  }
+}
+
+/* Behind the hero and header: fades out downwards and dims behind the headline. */
+.shop-grid-hero {
+  mask-image:
+    radial-gradient(ellipse 75% 80% at 50% 20%, #000 30%, transparent 80%),
+    radial-gradient(ellipse 32% 22% at 50% 38%, rgba(0, 0, 0, 0.3), #000);
+  mask-composite: intersect;
+}
+
+/* Inside the closing CTA card: visible around the edges, clear behind the copy. */
+.shop-grid-cta {
+  mask-image: radial-gradient(ellipse 62% 62% at 50% 50%, transparent 25%, #000 100%);
+}
+
+/* Text fills a phone's width, so the grid steps further back there. */
+@media (max-width: 639px) {
+  .shop-grid {
+    --shop-grid-line: rgba(148, 163, 184, 0.13);
+  }
+
+  .shop-grid-hero {
+    mask-image:
+      radial-gradient(ellipse 90% 75% at 50% 20%, #000 30%, transparent 80%),
+      radial-gradient(ellipse 70% 24% at 50% 40%, rgba(0, 0, 0, 0.3), #000);
+  }
+
+  .shop-grid-cta {
+    mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, transparent 45%, #000 100%);
+  }
+}
+
+/* Scroll-linked reveal for below-the-fold blocks. Progressive enhancement: without scroll-driven
+   animation support, or with reduced motion, content is simply static and fully visible.
+   Needs the root as the nearest scroll container, so ancestors use `overflow: clip`, not hidden. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: reveal-up linear both;
+      animation-timeline: view();
+      animation-range: entry 5% cover 28%;
+    }
+
+    .reveal-delay-1 {
+      animation-range: entry 15% cover 34%;
+    }
+
+    .reveal-delay-2 {
+      animation-range: entry 25% cover 40%;
+    }
+  }
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(32px) scale(0.98);
+  }
+}
+
+/* Hover lift for glass cards. `.liquid-glass-card`/`.liquid-pill` are unlayered, so a
+   `hover:shadow-*` utility can't change their shadow; this class can. */
+.glass-lift:hover {
+  box-shadow:
+    0 24px 48px -16px rgba(2, 132, 199, 0.22),
+    0 2px 8px -2px rgba(15, 23, 42, 0.04),
+    inset 0 1.5px 2px 0 rgba(255, 255, 255, 1);
 }
 
 /* 7. Home page ----------------------------------------------------------------------------- */
@@ -333,20 +596,24 @@
   animation: how-it-works-data-packet 2.4s linear infinite;
 }
 
+/* Packets move inside `.how-it-works-data-line`, which runs from the first card's centre to the
+   last one's, so the drops are at 0%, 50% and 100% of the line. The step dots are centred 27px
+   below the line (32px stem box - 10px dot + 4px overlap, then half the dot), minus the packet's
+   3.5px radius = 23.5px. */
 .how-it-works-data-packet-left {
-  --packet-destination: calc(16.6667% - 3.5px);
-  --packet-destination-top: 29px;
+  --packet-destination: -3.5px;
+  --packet-destination-top: 23.5px;
 }
 
 .how-it-works-data-packet-middle {
   --packet-destination: calc(50% - 3.5px);
-  --packet-destination-top: 29px;
+  --packet-destination-top: 23.5px;
   animation-delay: 0.8s;
 }
 
 .how-it-works-data-packet-right {
-  --packet-destination: calc(83.3333% - 3.5px);
-  --packet-destination-top: 29px;
+  --packet-destination: calc(100% - 3.5px);
+  --packet-destination-top: 23.5px;
   animation-delay: 1.6s;
 }
 
@@ -398,12 +665,12 @@
     opacity: 1;
   }
   96% {
-    top: var(--packet-destination-top, 29px);
+    top: var(--packet-destination-top, 23.5px);
     left: var(--packet-destination);
     opacity: 1;
   }
   100% {
-    top: var(--packet-destination-top, 29px);
+    top: var(--packet-destination-top, 23.5px);
     left: var(--packet-destination);
     opacity: 0;
   }
@@ -413,60 +680,153 @@
   opacity: 1;
 }
 
-.integration-marquee,
-.testimonial-marquee {
-  width: 100%;
+/* Integrations (components/home/integrations.tsx). Payments flow into the UrShop hub and orders
+   flow out to the couriers: packets run down the links on small screens and across from `lg`.
+   Each packet is a full-size box with the dot on its leading edge, moved by its own size, so the
+   animation is transform-only whatever the link's length. */
+.integration-link {
+  position: relative;
   overflow: hidden;
-  mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
 }
 
-.integration-marquee {
-  padding-block: 0.75rem 1.25rem;
+.integration-link::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(50% - 0.5px);
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    rgba(8, 192, 216, 0.12),
+    rgba(8, 192, 216, 0.5),
+    rgba(8, 192, 216, 0.12)
+  );
+  content: "";
 }
 
-.integration-marquee-track,
-.testimonial-track {
-  display: flex;
-  width: max-content;
-  will-change: transform;
+.integration-packet {
+  position: absolute;
+  inset: 0;
+  animation: integration-flow-y 2.6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
 }
 
-.integration-marquee-track {
-  animation: integration-marquee-scroll 24s linear infinite;
+.integration-packet-late {
+  animation-delay: -1.3s;
 }
 
-.integration-marquee-set {
-  display: flex;
-  flex: none;
-  align-items: center;
-  gap: 1rem;
-  padding-right: 1rem;
+.integration-packet::after {
+  position: absolute;
+  bottom: 0;
+  left: calc(50% - 3px);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #08c0d8;
+  box-shadow: 0 0 10px rgba(8, 192, 216, 0.7);
+  content: "";
 }
 
-.integration-marquee-set > .liquid-pill {
-  flex: 0 0 220px;
-  height: 8rem;
-  border-radius: 2rem;
-}
-
-.integration-marquee:hover .integration-marquee-track,
-.testimonial-marquee:hover .testimonial-track {
-  animation-play-state: paused;
-}
-
-@keyframes integration-marquee-scroll {
+@keyframes integration-flow-y {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  20%,
+  80% {
+    opacity: 1;
+  }
   to {
-    transform: translateX(-50%);
+    transform: translateY(0);
+    opacity: 0;
+  }
+}
+
+@keyframes integration-flow-x {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  20%,
+  80% {
+    opacity: 1;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .integration-link::before {
+    top: calc(50% - 0.5px);
+    right: 0;
+    bottom: auto;
+    left: 0;
+    width: auto;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      rgba(8, 192, 216, 0.12),
+      rgba(8, 192, 216, 0.5),
+      rgba(8, 192, 216, 0.12)
+    );
+  }
+
+  .integration-packet {
+    animation-name: integration-flow-x;
+  }
+
+  .integration-packet::after {
+    top: calc(50% - 3px);
+    right: 0;
+    bottom: auto;
+    left: auto;
+  }
+}
+
+/* Rings pulsing out of the UrShop hub. */
+.integration-hub::before,
+.integration-hub::after {
+  position: absolute;
+  inset: -1px;
+  border: 1px solid rgba(8, 192, 216, 0.35);
+  border-radius: 50%;
+  content: "";
+  animation: integration-hub-pulse 3.2s ease-out infinite;
+  pointer-events: none;
+}
+
+.integration-hub::after {
+  animation-delay: -1.6s;
+}
+
+@keyframes integration-hub-pulse {
+  from {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  to {
+    transform: scale(1.65);
+    opacity: 0;
   }
 }
 
 .testimonial-marquee {
+  width: 100%;
+  overflow: hidden;
   padding-block: 0.5rem 1.5rem;
   mask-image: linear-gradient(to right, transparent, black 4%, black 96%, transparent);
 }
 
 .testimonial-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
   animation: testimonial-scroll 42s linear infinite;
+}
+
+.testimonial-marquee:hover .testimonial-track {
+  animation-play-state: paused;
 }
 
 .testimonial-set {
@@ -502,6 +862,19 @@
   }
 }
 
+/* FAQ: questions of the newly picked category rise in one after another (components/home/faq.tsx
+   sets the stagger). Opening and closing answers is a grid-rows transition done with utilities. */
+.faq-enter {
+  animation: faq-enter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes faq-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
 .book-calendar-button {
   box-sizing: border-box;
   width: 8.875rem;
@@ -515,7 +888,7 @@
   }
 
   .hero-signup-capsule {
-    width: calc(100% - 1rem);
+    width: 100%;
     max-width: none;
     padding: 0.5rem;
   }
@@ -523,7 +896,7 @@
   .hero-signup-form {
     flex-direction: row;
     gap: 0.25rem;
-    padding: 0 0.2rem 0 0.6rem;
+    padding: 0 0.2rem 0 0.4rem;
   }
 
   .hero-signup-form > div {
@@ -547,7 +920,8 @@
     min-width: 0;
     max-width: 9.5rem;
     flex: 0 1 9.5rem;
-    font-size: clamp(0.78rem, 3.4vw, 0.9rem);
+    font-size: clamp(0.75rem, 3.2vw, 0.9rem);
+    text-overflow: ellipsis;
   }
 
   .hero-signup-form label > span {
@@ -555,16 +929,20 @@
     white-space: nowrap;
   }
 
-  .hero-signup-form > div + div,
-  .hero-signup-form .mobile-full-width-shell,
-  .hero-signup-form .mobile-full-width-face {
+  /* The button needs an explicit width: its layers are absolutely positioned, so `width: auto`
+     on the shell collapses it to nothing. Slightly narrower than on desktop so the full
+     "your brand name.urshop.app" fits beside it on a 375px phone. */
+  .hero-signup-form > div + div {
     width: auto;
     flex: 0 0 auto;
   }
 
-  .hero-signup-form .mobile-full-width-shell,
+  .hero-signup-form .mobile-full-width-shell {
+    width: 7.5rem;
+  }
+
   .hero-signup-form .mobile-full-width-face {
-    min-height: 44px;
+    width: 7.25rem;
   }
 
   .testimonial-set {
@@ -622,10 +1000,30 @@
 
 @media (prefers-reduced-motion: reduce) {
   .testimonial-track,
-  .integration-marquee-track,
+  .integration-packet,
+  .integration-hub::before,
+  .integration-hub::after,
   .hero-earning-badge,
   .how-it-works-data-packet,
-  .how-it-works-data-point {
+  .how-it-works-data-point,
+  .ambient-orb,
+  .shop-grid-beam-x,
+  .shop-grid-beam-y {
+    animation: none;
+  }
+
+  .shop-grid-beam-x,
+  .shop-grid-beam-y {
+    display: none;
+  }
+
+  /* Keep the lit tiles as a still pattern. */
+  .shop-grid-tile {
+    animation: none;
+    opacity: 0.8;
+  }
+
+  .faq-enter {
     animation: none;
   }
 }

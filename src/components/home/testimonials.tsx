@@ -33,7 +33,7 @@ function TestimonialSet({ hidden = false }: { hidden?: boolean }) {
       {testimonials.map((testimonial) => (
         <article
           key={testimonial.name}
-          className="liquid-glass-card flex flex-col justify-between rounded-card p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-glass-hover"
+          className="liquid-glass-card glass-lift flex flex-col justify-between rounded-card p-7 transition-all duration-300 hover:-translate-y-1"
         >
           <p className="mb-6 text-sm leading-relaxed font-normal text-slate-700">
             &quot;{testimonial.quote}&quot;
@@ -64,7 +64,7 @@ export function Testimonials() {
   return (
     <section className="relative px-6 py-24 lg:px-12" id="testimonials">
       <div className="mx-auto max-w-5xl">
-        <div className="mb-16 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+        <div className="reveal mb-16 flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div>
             <span className="liquid-pill mb-1 inline-flex items-center justify-center rounded-full px-5 py-1.5 text-[12px] font-bold tracking-[0.18em] text-slate-600 uppercase select-none">
               TESTIMONIALS
@@ -74,7 +74,10 @@ export function Testimonials() {
             </h2>
           </div>
         </div>
-        <div className="testimonial-marquee" aria-label="Customer testimonials">
+        <div
+          className="testimonial-marquee reveal reveal-delay-1"
+          aria-label="Customer testimonials"
+        >
           <div className="testimonial-track">
             <TestimonialSet />
             <TestimonialSet hidden />

@@ -6,8 +6,47 @@ import heroAvatar3 from "@/assets/home/hero-avatar-3.jpg";
 import { DiaText } from "@/components/ui/dia-text";
 
 import { HeroSignup } from "./hero-signup";
+import { ShopGrid, type ShopGridBeam, type ShopGridTile } from "./shop-grid";
 
 const eyebrowAvatars = [heroAvatar1, heroAvatar2, heroAvatar3];
+
+// Kept clear of the headline column; `sm:hidden` tiles fill the narrow mobile viewport instead.
+const heroTiles: ReadonlyArray<ShopGridTile> = [
+  { x: -12, y: 3, delay: -1 },
+  { x: -8, y: 8, delay: -6 },
+  { x: -14, y: 10, delay: -3.5 },
+  { x: -6, y: 14, delay: -8 },
+  { x: -3, y: 1, delay: -4.5 },
+  { x: 4, y: 0, delay: -9 },
+  { x: 9, y: 3, delay: -7 },
+  { x: 11, y: 7, delay: -2 },
+  { x: 6, y: 11, delay: -5.5 },
+  { x: 13, y: 12, delay: -0.5 },
+  { x: -4, y: 4, delay: -2.5, className: "sm:hidden" },
+  { x: 3, y: 15, delay: -7.5, className: "sm:hidden" },
+];
+
+const heroBeams: ReadonlyArray<ShopGridBeam> = [
+  { axis: "x", at: 2, delay: -1, duration: 9 },
+  { axis: "x", at: 10, delay: -5, duration: 11 },
+  { axis: "y", at: -10, delay: -3, duration: 8 },
+  { axis: "y", at: 8, delay: -6.5, duration: 10 },
+  { axis: "y", at: 14, delay: -1.5, duration: 12 },
+];
+
+/**
+ * Shop-grid backdrop behind the hero and the header. Rendered by the page, not inside `Hero`,
+ * so it isn't clipped by the hero section and continues under the floating header.
+ */
+export function HeroBackdrop() {
+  return (
+    <ShopGrid
+      tiles={heroTiles}
+      beams={heroBeams}
+      className="shop-grid-hero inset-x-0 top-0 z-0 h-[880px] md:h-[1000px]"
+    />
+  );
+}
 
 function EarningBadge({
   category,

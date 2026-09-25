@@ -18,6 +18,10 @@ Marketing site for UrShop. Next.js 16 (App Router), React 19, TypeScript, Tailwi
 - Reproduce what it renders, at every breakpoint. Do not redesign, "clean up" visuals, or swap
   colors/spacing/typography for near equivalents.
 - Migration plan, section inventory and known quirks: `docs/migration.md`.
+- Deliberate additions beyond the Lovable design (home page: ambient backdrop, shop grid, scroll
+  reveal, glass hover lift, FAQ expand, mobile hero signup sizing, redesigned Integrations section)
+  are documented in `src/app/globals.css` (section 6 and the home page rules). Keep them; don't
+  "restore" the original.
 
 ## Commands
 

@@ -96,6 +96,15 @@ export function SiteFooter() {
       id="site-footer"
       className="relative z-10 w-full border-t border-white/10 bg-[#070B12] text-slate-400"
     >
+      {/* Brand glow along the top edge (negative z: under the content, above the background). */}
+      <div
+        className="pointer-events-none absolute inset-x-0 -top-px -z-10 h-px bg-linear-to-r from-transparent via-brand/70 to-transparent"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute top-0 left-1/2 -z-10 h-48 w-full max-w-4xl -translate-x-1/2 bg-[radial-gradient(ellipse_50%_100%_at_50%_0%,rgba(8,192,216,0.14),transparent)]"
+        aria-hidden="true"
+      />
       <div className="mx-auto max-w-6xl px-6 pt-16 pb-12">
         <div className="grid grid-cols-1 gap-10 pb-16 md:grid-cols-12 lg:gap-12">
           {/* Brand, registration and app badges */}

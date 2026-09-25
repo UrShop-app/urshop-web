@@ -1,8 +1,9 @@
+import { AmbientBackdrop } from "@/components/layout/ambient-backdrop";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { ClosingCta } from "@/components/home/closing-cta";
 import { Faq } from "@/components/home/faq";
-import { Hero } from "@/components/home/hero";
+import { Hero, HeroBackdrop } from "@/components/home/hero";
 import { HowItWorks } from "@/components/home/how-it-works";
 import { Integrations } from "@/components/home/integrations";
 import { ShopSetupGuide } from "@/components/home/shop-setup-guide";
@@ -18,12 +19,10 @@ export const metadata = pageMetadata({
 
 export default function HomePage() {
   return (
-    <div className="relative overflow-x-hidden bg-[#FAFBFD] text-slate-900 selection:bg-brand-light selection:text-brand-dark">
-      <div className="aurora-bg" aria-hidden="true">
-        <div className="aurora-blob-1" />
-        <div className="aurora-blob-2" />
-        <div className="aurora-blob-3" />
-      </div>
+    // `overflow-x-clip` (not hidden) keeps the root the scroll container for `.reveal`.
+    <div className="relative overflow-x-clip bg-[#FAFBFD] text-slate-900 selection:bg-brand-light selection:text-brand-dark">
+      <AmbientBackdrop />
+      <HeroBackdrop />
 
       <SiteHeader />
 

@@ -14,7 +14,7 @@ export function ShopSetupGuide() {
     <section className="relative px-6 py-24 lg:px-12" id="features">
       <div className="mx-auto max-w-5xl space-y-24">
         <div className="flex w-full flex-col items-center pt-4 pb-4">
-          <div className="mx-auto mb-12 max-w-3xl text-center">
+          <div className="reveal mx-auto mb-12 max-w-3xl text-center">
             <span className="liquid-pill mb-4 inline-flex items-center justify-center rounded-full px-5 py-1.5 text-[12px] font-bold tracking-[0.18em] text-slate-600 uppercase select-none">
               SHOP SETUP GUIDE
             </span>
@@ -31,7 +31,7 @@ export function ShopSetupGuide() {
           <div className="grid w-full grid-cols-1 items-start gap-8 lg:grid-cols-12">
             <div className="flex flex-col lg:col-span-8">
               <div
-                className="liquid-glass-card relative rounded-3xl p-4 sm:p-6"
+                className="liquid-glass-card reveal relative rounded-3xl p-4 sm:p-6"
                 style={{ borderRadius: "28px" }}
               >
                 <div className="group relative flex aspect-video w-full items-center justify-center overflow-hidden rounded-2xl bg-slate-900 shadow-inner select-none">
@@ -103,7 +103,7 @@ export function ShopSetupGuide() {
 
             <div className="flex flex-col lg:col-span-4">
               <div
-                className="liquid-glass-card flex h-full flex-col justify-between rounded-3xl p-6"
+                className="liquid-glass-card reveal reveal-delay-1 flex h-full flex-col justify-between rounded-3xl p-6"
                 style={{ borderRadius: "28px" }}
               >
                 <div>

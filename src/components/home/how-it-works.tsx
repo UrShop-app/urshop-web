@@ -32,6 +32,8 @@ const steps = [
   },
 ];
 
+const revealDelays = ["", "reveal-delay-1", "reveal-delay-2"];
+
 /** Three-step onboarding explanation with the source design's animated connector. */
 export function HowItWorks() {
   return (
@@ -39,21 +41,25 @@ export function HowItWorks() {
       <div
         className="pointer-events-none absolute inset-0 opacity-30"
         style={{
+          maskImage: "radial-gradient(ellipse 70% 65% at 50% 50%, #000 40%, transparent 100%)",
           backgroundSize: "40px 40px",
           backgroundImage:
             "linear-gradient(to right, rgba(226, 232, 240, 0.6) 1px, transparent 1px), linear-gradient(rgba(226, 232, 240, 0.6) 1px, transparent 1px)",
         }}
       />
       <div className="relative z-10 mx-auto max-w-5xl">
+        {/* The block's ::after stem joins the data line, so only its content is revealed. */}
         <div className="how-it-works-title-block mx-auto mb-16 max-w-2xl text-center">
-          <span className="liquid-pill mb-2 inline-flex items-center justify-center rounded-full px-6 py-2 text-[12px] font-bold tracking-[0.18em] text-slate-600 uppercase select-none">
-            HOW IT WORKS
-          </span>
-          <h2 className="mt-3 mb-4 text-3xl font-extrabold text-slate-900 sm:text-4xl">
-            From idea to live shop
-            <br />
-            in 3 simple steps.
-          </h2>
+          <div className="reveal">
+            <span className="liquid-pill mb-2 inline-flex items-center justify-center rounded-full px-6 py-2 text-[12px] font-bold tracking-[0.18em] text-slate-600 uppercase select-none">
+              HOW IT WORKS
+            </span>
+            <h2 className="mt-3 mb-4 text-3xl font-extrabold text-slate-900 sm:text-4xl">
+              From idea to live shop
+              <br />
+              in 3 simple steps.
+            </h2>
+          </div>
         </div>
 
         <div className="relative">
@@ -72,7 +78,7 @@ export function HowItWorks() {
                   />
                 </div>
                 <article
-                  className="liquid-glass-card flex h-full flex-col justify-between rounded-3xl p-8 transition-all duration-300 hover:-translate-y-2 hover:shadow-glass-hover"
+                  className={`liquid-glass-card glass-lift reveal ${revealDelays[index]} flex h-full flex-col justify-between rounded-3xl p-8 transition-all duration-300 hover:-translate-y-2`}
                   style={{ borderRadius: "28px" }}
                 >
                   <div>
@@ -97,7 +103,7 @@ export function HowItWorks() {
             ))}
           </div>
         </div>
-        <div className="mt-16 text-center">
+        <div className="reveal mt-16 text-center">
           <p className="text-base font-medium text-slate-600">
             Skip the complex setup.{" "}
             <span className="font-semibold text-slate-900">We handle the rest.</span>
