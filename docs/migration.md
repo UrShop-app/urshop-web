@@ -95,13 +95,13 @@ Unsplash photos (hero badges, testimonials) stay remote.
 
 Keep these exactly as they are (`href="#"` / no-op) until the destination exists; don't invent one.
 
-| Where                    | Element                                                                                                        | Needs                                                         |
-| ------------------------ | -------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
-| Header (done)            | "Log in"                                                                                                       | merchant dashboard URL (planned: https://merchant.urshop.app) |
-| Header (done), hero, CTA | "Sign up", "Start my Shop", "Start Free Trial" → `/pricing`                                                    | confirm this is the intended flow                             |
-| Hero                     | "your brand name" input + form (submit is prevented, value unused)                                             | signup/onboarding behavior                                    |
-| Shop setup guide         | Play button, "✕" on the video, playlist rows (look clickable)                                                  | video/course behavior                                         |
-| FAQ                      | "Chat with us"                                                                                                 | support chat URL                                              |
-| Closing CTA              | "Book Calendar"                                                                                                | booking URL                                                   |
-| Footer (done)            | Platform, Discover and Legal links (all but "Pricing"), App Store, Google Play, 4 social icons                 | real pages / store listings / profiles                        |
-| Pricing                  | "30 day free trial", "Choose Starter/Growth/Scale", "Start Free", "Select" ×2, "Upgrade", "Talk to Sales Team" | signup/checkout and sales contact URLs                        |
+| Where                    | Element                                                                                                                           | Needs                                                         |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| Header (done)            | "Log in"                                                                                                                          | merchant dashboard URL (planned: https://merchant.urshop.app) |
+| Header (done), hero, CTA | "Sign up", "Start my Shop", "Start Free Trial" → `/pricing`                                                                       | confirm this is the intended flow                             |
+| Hero                     | "your brand name" input + form (submit is prevented, value unused)                                                                | signup/onboarding behavior                                    |
+| Shop setup guide         | Play button, "✕" on the video, playlist rows (look clickable)                                                                     | video/course behavior                                         |
+| FAQ                      | "Chat with us"                                                                                                                    | support chat URL                                              |
+| Closing CTA              | "Book Calendar"                                                                                                                   | booking URL                                                   |
+| Footer (done)            | Platform, Discover and Legal links (all but "Pricing" and the three platform legal pages), App Store, Google Play, 4 social icons | real pages / store listings / profiles                        |
+| Pricing                  | "30 day free trial", "Choose Starter/Growth/Scale", "Start Free", "Select" ×2, "Upgrade", "Talk to Sales Team"                    | signup/checkout and sales contact URLs                        |

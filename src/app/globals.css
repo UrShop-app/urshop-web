@@ -1027,3 +1027,86 @@
     animation: none;
   }
 }
+
+/* 8. Legal pages ----------------------------------------------------------------------------
+ * Typography for the platform legal documents (components/legal/legal-page.tsx). The copy is
+ * long-form JSX, so element styles live here instead of on every tag. Readability over
+ * decoration: body 16px/1.75 slate-700 on white, ~70ch measure, underlined links.
+ */
+
+@layer components {
+  .legal-prose {
+    color: var(--color-slate-700);
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  .legal-prose > section + section {
+    margin-top: 2.5rem;
+  }
+
+  .legal-prose h2 {
+    color: var(--color-slate-900);
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.4;
+  }
+
+  .legal-prose h2 + * {
+    margin-top: 0.75rem;
+  }
+
+  .legal-prose :is(p, ul, ol) + :is(p, ul, ol) {
+    margin-top: 1rem;
+  }
+
+  .legal-prose ul,
+  .legal-prose ol {
+    padding-left: 1.25rem;
+  }
+
+  .legal-prose ul {
+    list-style-type: disc;
+  }
+
+  .legal-prose ol {
+    list-style-type: decimal;
+  }
+
+  .legal-prose li + li {
+    margin-top: 0.5rem;
+  }
+
+  .legal-prose li {
+    padding-left: 0.25rem;
+  }
+
+  .legal-prose li::marker {
+    color: var(--color-slate-400);
+  }
+
+  .legal-prose strong {
+    color: var(--color-slate-900);
+    font-weight: 600;
+  }
+
+  .legal-prose a {
+    color: var(--color-brand-dark);
+    font-weight: 600;
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    overflow-wrap: anywhere;
+  }
+
+  .legal-prose a:hover {
+    text-decoration-thickness: 2px;
+  }
+
+  .legal-prose a:focus-visible {
+    border-radius: 2px;
+    outline: 2px solid var(--color-brand-dark);
+    outline-offset: 2px;
+  }
+}

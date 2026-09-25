@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import logo from "@/assets/logo-white.png";
 import { LocationMap } from "@/components/ui/location-map";
+import { legalDocuments } from "@/config/legal";
 import { siteConfig } from "@/config/site";
 
 // TODO: replace the "#" placeholders with real destinations as those pages/accounts exist.
@@ -24,8 +25,9 @@ const LINK_COLUMNS = {
   ],
   legal: [
     { label: "About Us", href: "#" },
-    { label: "Privacy Policy", href: "#" },
-    { label: "Terms of Service", href: "#" },
+    { label: legalDocuments.privacyPolicy.navLabel, href: legalDocuments.privacyPolicy.path },
+    { label: legalDocuments.terms.navLabel, href: legalDocuments.terms.path },
+    { label: legalDocuments.dataDeletion.navLabel, href: legalDocuments.dataDeletion.path },
     { label: "Security Policy", href: "#" },
     { label: "Withdrawal Policy", href: "#" },
     { label: "Pricing", href: "/pricing" },
