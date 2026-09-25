@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# UrShop Web
 
-## Getting Started
+Marketing website for [UrShop](https://urshop.app), the online shop builder for Bangladeshi sellers.
+Built with Next.js 16 (App Router), React 19, TypeScript and Tailwind CSS v4.
 
-First, run the development server:
+The visual design comes from the approved Lovable prototype (`../radiant-recaps-app`), which is being
+migrated page by page — see [docs/migration.md](docs/migration.md).
+
+## Getting started
+
+Requires Node.js 20.9+ and pnpm 10 (`corepack enable` picks up the version pinned in `package.json`).
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command             | What it does                                        |
+| ------------------- | --------------------------------------------------- |
+| `pnpm dev`          | Start the dev server                                |
+| `pnpm build`        | Production build (also type-checks)                 |
+| `pnpm start`        | Serve the production build                          |
+| `pnpm lint`         | ESLint (Next.js core-web-vitals + TypeScript rules) |
+| `pnpm typecheck`    | Generate route types, then run `tsc`                |
+| `pnpm format`       | Format with Prettier (also sorts Tailwind classes)  |
+| `pnpm format:check` | Check formatting without writing                    |
 
-## Learn More
+## Project layout and conventions
 
-To learn more about Next.js, take a look at the following resources:
+Folder structure, styling rules and coding conventions are in [AGENTS.md](AGENTS.md). They apply to
+everyone working in the repo, not just AI agents.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Key files:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `src/app/globals.css` — design tokens and the few global CSS classes
+- `src/app/layout.tsx` — fonts, icon font, default metadata
+- `src/config/site.ts` — site name, production URL, support email
+- `next.config.ts` — allowed remote image hosts
