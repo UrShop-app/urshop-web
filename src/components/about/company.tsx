@@ -1,6 +1,6 @@
 import Link from "next/link";
-import type { ReactNode } from "react";
 
+import { Fact, FactList } from "@/components/ui/fact-list";
 import { legalDocumentList, legalDocuments } from "@/config/legal";
 import { siteConfig } from "@/config/site";
 
@@ -45,7 +45,7 @@ export function Company() {
           className="liquid-glass-card reveal reveal-delay-1 rounded-3xl p-6 sm:p-8"
           style={{ borderRadius: "28px" }}
         >
-          <dl className="divide-y divide-slate-200/80">
+          <FactList>
             <Fact term="Platform">
               {siteConfig.name} ·{" "}
               <span className="font-mono text-[0.95em]">{new URL(siteConfig.url).host}</span>
@@ -70,20 +70,9 @@ export function Company() {
                 ))}
               </ul>
             </Fact>
-          </dl>
+          </FactList>
         </div>
       </div>
     </section>
-  );
-}
-
-function Fact({ term, children }: { term: string; children: ReactNode }) {
-  return (
-    <div className="grid gap-1 py-4 first:pt-0 last:pb-0 sm:grid-cols-[11rem_minmax(0,1fr)] sm:gap-4">
-      <dt className="text-[12px] font-bold tracking-[0.14em] text-slate-500 uppercase sm:pt-0.5">
-        {term}
-      </dt>
-      <dd className="text-sm leading-relaxed text-slate-800 sm:text-base">{children}</dd>
-    </div>
   );
 }

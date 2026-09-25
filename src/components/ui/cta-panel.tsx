@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { ReactNode } from "react";
 
 import { ShopGrid, type ShopGridBeam, type ShopGridTile } from "./shop-grid";
@@ -43,10 +44,13 @@ export function CtaPanel({ children }: { children: ReactNode }) {
   );
 }
 
-/** White glass secondary action that sits next to the primary `MetallicButton` in a CtaPanel. */
+/**
+ * White glass secondary action (an internal route or `mailto:`) that sits next to the primary
+ * `MetallicButton` in a CtaPanel.
+ */
 export function CtaSecondaryLink({ href, children }: { href: string; children: ReactNode }) {
   return (
-    <a
+    <Link
       href={href}
       className="inline-flex h-11.5 items-center justify-center rounded-full px-7 text-sm font-bold text-slate-800 transition-all duration-300 hover:bg-white/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-dark active:scale-95"
       style={{
@@ -57,6 +61,6 @@ export function CtaSecondaryLink({ href, children }: { href: string; children: R
       }}
     >
       {children}
-    </a>
+    </Link>
   );
 }

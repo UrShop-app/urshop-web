@@ -46,6 +46,12 @@ export function SiteHeader() {
             >
               About
             </Link>
+            <Link
+              href="/contact"
+              className="hidden rounded-full px-2 py-[0.65rem] text-xs/[1.428571] font-bold whitespace-nowrap text-slate-700 transition-colors hover:bg-white/50 hover:text-slate-900 md:inline-block md:px-3 md:py-1.5 md:text-base md:leading-normal"
+            >
+              Contact
+            </Link>
             {/* TODO: point to the dashboard login once it exists. */}
             <Link
               href="#"

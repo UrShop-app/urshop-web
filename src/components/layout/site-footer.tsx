@@ -16,7 +16,7 @@ const LINK_COLUMNS = {
     { label: "Help Center", href: "#" },
     { label: "Report", href: "#" },
     { label: "Feature Request", href: "#" },
-    { label: "Contact", href: "#" },
+    { label: "Contact", href: "/contact" },
   ],
   discover: [
     { label: "Explore Creators", href: "#" },
