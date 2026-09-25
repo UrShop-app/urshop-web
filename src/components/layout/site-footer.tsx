@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import logo from "@/assets/urshop-logo.png";
+import logo from "@/assets/logo-white.png";
 import { LocationMap } from "@/components/ui/location-map";
 import { siteConfig } from "@/config/site";
 
@@ -122,7 +122,7 @@ export function SiteFooter() {
               <span className="font-medium text-slate-300">TRAD/NCC/0005482/2025</span>
             </div>
 
-            <div className="mt-2">
+            {/* <div className="mt-2">
               <span className="mb-3 block text-[11px] font-bold tracking-widest text-slate-400 uppercase">
                 GET THE APP
               </span>
@@ -164,7 +164,7 @@ export function SiteFooter() {
                   </div>
                 </a>
               </div>
-            </div>
+            </div> */}
           </div>
 
           <div className="flex flex-col justify-between gap-8 md:col-span-3">

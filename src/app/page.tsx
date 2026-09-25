@@ -1,5 +1,12 @@
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { ClosingCta } from "@/components/home/closing-cta";
+import { Faq } from "@/components/home/faq";
+import { Hero } from "@/components/home/hero";
+import { HowItWorks } from "@/components/home/how-it-works";
+import { Integrations } from "@/components/home/integrations";
+import { ShopSetupGuide } from "@/components/home/shop-setup-guide";
+import { Testimonials } from "@/components/home/testimonials";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
@@ -21,8 +28,13 @@ export default function HomePage() {
       <SiteHeader />
 
       <main className="relative z-10 w-full pt-[116px]">
-        {/* Sections to migrate, in order: Hero, How it works, Shop setup guide, Integrations,
-            Testimonials, FAQ, Closing CTA. See docs/migration.md. */}
+        <Hero />
+        <HowItWorks />
+        <ShopSetupGuide />
+        <Integrations />
+        <Testimonials />
+        <Faq />
+        <ClosingCta />
       </main>
 
       <SiteFooter />
