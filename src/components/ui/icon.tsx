@@ -12,6 +12,7 @@ export const ICON_NAMES = [
   "ads_click",
   "apps",
   "arrow_back",
+  "arrow_forward",
   "auto_awesome",
   "check_circle",
   "close",

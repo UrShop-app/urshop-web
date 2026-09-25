@@ -1,0 +1,62 @@
+import type { ReactNode } from "react";
+
+import { ShopGrid, type ShopGridBeam, type ShopGridTile } from "./shop-grid";
+
+const ctaTiles: ReadonlyArray<ShopGridTile> = [
+  { x: -10, y: 2, delay: -3 },
+  { x: -7, y: 7, delay: -8 },
+  { x: -3, y: 0, delay: -5 },
+  { x: 4, y: 7, delay: -1.5 },
+  { x: 8, y: 1, delay: -6 },
+  { x: 2, y: 0, delay: -4, className: "sm:hidden" },
+];
+
+const ctaBeams: ReadonlyArray<ShopGridBeam> = [
+  { axis: "x", at: 2, delay: -3, duration: 10 },
+  { axis: "y", at: -8, delay: -5, duration: 9 },
+  { axis: "y", at: 7, delay: -1, duration: 11 },
+];
+
+/**
+ * Glass closing-CTA card in the home page's closing-CTA style: shop grid around the edges, brand
+ * glows in two corners, centred content. The caller supplies the section, heading and actions.
+ */
+export function CtaPanel({ children }: { children: ReactNode }) {
+  return (
+    <div
+      className="reveal relative mx-auto max-w-5xl overflow-clip p-10 text-center sm:p-16"
+      style={{
+        background:
+          "linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(240, 249, 255, 0.75) 50%, rgba(224, 242, 254, 0.8) 100%)",
+        backdropFilter: "blur(28px) saturate(190%)",
+        border: "1.5px solid rgba(255, 255, 255, 0.95)",
+        boxShadow:
+          "0 28px 56px -12px rgba(2, 132, 199, 0.18), inset 0 2px 3px rgba(255, 255, 255, 1)",
+        borderRadius: "32px",
+      }}
+    >
+      <ShopGrid tiles={ctaTiles} beams={ctaBeams} className="shop-grid-cta inset-0" />
+      <div className="pointer-events-none absolute -top-24 -left-24 size-80 rounded-full bg-brand-cyan/20 blur-3xl" />
+      <div className="pointer-events-none absolute -right-24 -bottom-24 size-80 rounded-full bg-brand/20 blur-3xl" />
+      <div className="relative z-10 mx-auto flex max-w-2xl flex-col items-center">{children}</div>
+    </div>
+  );
+}
+
+/** White glass secondary action that sits next to the primary `MetallicButton` in a CtaPanel. */
+export function CtaSecondaryLink({ href, children }: { href: string; children: ReactNode }) {
+  return (
+    <a
+      href={href}
+      className="inline-flex h-11.5 items-center justify-center rounded-full px-7 text-sm font-bold text-slate-800 transition-all duration-300 hover:bg-white/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-dark active:scale-95"
+      style={{
+        background: "rgba(255, 255, 255, 0.75)",
+        backdropFilter: "blur(16px)",
+        border: "1.5px solid rgba(255, 255, 255, 0.95)",
+        boxShadow: "0 4px 16px rgba(15, 23, 42, 0.06), inset 0 1.5px 2px rgba(255, 255, 255, 1)",
+      }}
+    >
+      {children}
+    </a>
+  );
+}

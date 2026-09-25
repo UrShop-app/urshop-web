@@ -25,7 +25,7 @@ const LINK_COLUMNS = {
     { label: "Events & Workshops", href: "#" },
   ],
   legal: [
-    { label: "About Us", href: "#" },
+    { label: "About Us", href: "/about" },
     { label: legalDocuments.privacyPolicy.navLabel, href: legalDocuments.privacyPolicy.path },
     { label: legalDocuments.terms.navLabel, href: legalDocuments.terms.path },
     { label: legalDocuments.dataDeletion.navLabel, href: legalDocuments.dataDeletion.path },
@@ -131,7 +131,7 @@ export function SiteFooter() {
                 GOVT. REG
               </span>
               <span className="text-slate-500">|</span>
-              <span className="font-medium text-slate-300">TRAD/NCC/0005482/2025</span>
+              <span className="font-medium text-slate-300">{siteConfig.tradeRegistration}</span>
             </div>
 
             {/* <div className="mt-2">

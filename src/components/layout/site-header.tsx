@@ -40,6 +40,12 @@ export function SiteHeader() {
             >
               Features
             </Link>
+            <Link
+              href="/about"
+              className="hidden rounded-full px-2 py-[0.65rem] text-xs/[1.428571] font-bold whitespace-nowrap text-slate-700 transition-colors hover:bg-white/50 hover:text-slate-900 sm:inline-block sm:leading-normal md:px-3 md:py-1.5 md:text-base"
+            >
+              About
+            </Link>
             {/* TODO: point to the dashboard login once it exists. */}
             <Link
               href="#"

@@ -9,4 +9,6 @@ export const siteConfig = {
   description:
     "The simplest way for Bangladeshi shops and creators to sell products online: bKash & Nagad payouts, automated Pathao, Steadfast and RedX delivery, and a clean checkout page.",
   supportEmail: "support@urshop.app",
+  /** Government trade registration number, shown in the footer and on the About page. */
+  tradeRegistration: "TRAD/NCC/0005482/2025",
 } as const;
