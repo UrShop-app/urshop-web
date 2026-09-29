@@ -1,6 +1,6 @@
 import { MetallicButton } from "@/components/ui/metallic-button";
-
 import { ShopGrid, type ShopGridBeam, type ShopGridTile } from "@/components/ui/shop-grid";
+import { siteConfig } from "@/config/site";
 
 // Your shop is the next tile to light up. The mask keeps the grid to the card's edges.
 const ctaTiles: ReadonlyArray<ShopGridTile> = [
@@ -51,7 +51,11 @@ export function ClosingCta() {
             on creating.
           </p>
           <div className="closing-cta-actions flex w-full flex-col items-center gap-4 sm:w-auto sm:flex-row">
-            <MetallicButton label="Start Free Trial" href="/pricing" className="w-full sm:w-auto" />
+            <MetallicButton
+              label="Start Free Trial"
+              href={siteConfig.adminSignUpUrl}
+              className="w-full sm:w-auto"
+            />
             <a
               className="book-calendar-button inline-flex w-full items-center justify-center rounded-full border px-8 py-4 text-sm font-bold text-slate-800 transition-all duration-300 hover:bg-white/80 active:scale-95 sm:w-auto"
               href="#"

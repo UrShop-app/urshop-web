@@ -1,6 +1,7 @@
 "use client";
 
 import { MetallicButton } from "@/components/ui/metallic-button";
+import { siteConfig } from "@/config/site";
 
 /** The approved address selector remains intentionally inactive until onboarding is available. */
 export function HeroSignup() {
@@ -36,7 +37,11 @@ export function HeroSignup() {
             <span className="font-bold tracking-tight text-brand">.urshop.app</span>
           </label>
         </div>
-        <MetallicButton label="Start my Shop" href="/pricing" className="w-full sm:w-auto" />
+        <MetallicButton
+          label="Start my Shop"
+          href={siteConfig.adminSignUpUrl}
+          className="w-full sm:w-auto"
+        />
       </form>
     </div>
   );

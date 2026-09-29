@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import logo from "@/assets/urshop-logo.png";
+import { siteConfig } from "@/config/site";
 
 import { FloatingHeader } from "./floating-header";
 
@@ -52,15 +53,14 @@ export function SiteHeader() {
             >
               Contact
             </Link>
-            {/* TODO: point to the dashboard login once it exists. */}
             <Link
-              href="#"
+              href={siteConfig.adminSignInUrl}
               className="rounded-full px-2 py-[0.65rem] text-xs/[1.428571] font-bold whitespace-nowrap text-slate-700 transition-colors hover:bg-white/50 hover:text-slate-900 sm:leading-normal md:px-3 md:py-1.5 md:text-base"
             >
               Log in
             </Link>
             <Link
-              href="/pricing"
+              href={siteConfig.adminSignUpUrl}
               className="inline-flex items-center justify-center rounded-full border px-[0.55rem] py-[0.65rem] text-[0.8rem]/[1.428571] font-bold whitespace-nowrap text-white transition-all duration-300 active:scale-95 sm:leading-normal md:px-7 md:py-2.5 md:text-base"
               style={{
                 background:

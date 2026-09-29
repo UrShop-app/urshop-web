@@ -11,7 +11,7 @@ const LINK_COLUMNS = {
   platform: [
     { label: "Features", href: "/features" },
     { label: "Start a Page", href: "#" },
-    { label: "Login", href: "#" },
+    { label: "Login", href: siteConfig.adminSignInUrl },
     { label: "Leaderboard", href: "#" },
     { label: "Help Center", href: "#" },
     { label: "Report", href: "#" },

@@ -21,7 +21,7 @@ export function AboutClosingCta() {
           through first? Our team is happy to help.
         </p>
         <div className="flex flex-col items-center gap-4 sm:flex-row">
-          <MetallicButton label="Start Free Trial" href="/pricing" />
+          <MetallicButton label="Start Free Trial" href={siteConfig.adminSignUpUrl} />
           <CtaSecondaryLink href={`mailto:${siteConfig.supportEmail}`}>
             Email our team
           </CtaSecondaryLink>

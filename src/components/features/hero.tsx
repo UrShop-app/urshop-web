@@ -1,5 +1,6 @@
 import { Icon } from "@/components/ui/icon";
 import { MetallicButton } from "@/components/ui/metallic-button";
+import { siteConfig } from "@/config/site";
 import { ShopGrid, type ShopGridBeam, type ShopGridTile } from "@/components/ui/shop-grid";
 
 import { featureAreas } from "./areas";
@@ -52,7 +53,7 @@ export function FeaturesHero() {
           from one dashboard.
         </p>
         <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-4">
-          <MetallicButton label="Start Free Trial" href="/pricing" />
+          <MetallicButton label="Start Free Trial" href={siteConfig.adminSignUpUrl} />
           <SearchLink className="glass-btn inline-flex h-11.5 items-center gap-2 rounded-full pr-6 pl-4 text-sm font-bold text-slate-700 transition-all duration-300 hover:text-slate-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-dark">
             <Icon name="search" className="text-brand" />
             Search all features

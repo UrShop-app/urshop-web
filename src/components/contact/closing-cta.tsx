@@ -1,5 +1,6 @@
 import { CtaPanel, CtaSecondaryLink } from "@/components/ui/cta-panel";
 import { MetallicButton } from "@/components/ui/metallic-button";
+import { siteConfig } from "@/config/site";
 
 /** Closing prompt for visitors who'd rather explore than write. */
 export function ContactClosingCta() {
@@ -20,7 +21,7 @@ export function ContactClosingCta() {
           still write to us whenever a question comes up.
         </p>
         <div className="flex flex-col items-center gap-4 sm:flex-row">
-          <MetallicButton label="Start Free Trial" href="/pricing" />
+          <MetallicButton label="Start Free Trial" href={siteConfig.adminSignUpUrl} />
           <CtaSecondaryLink href="/features">Explore features</CtaSecondaryLink>
         </div>
       </CtaPanel>
