@@ -1460,3 +1460,46 @@
     animation: none;
   }
 }
+
+/* 12. Security page -------------------------------------------------------------------------
+ * Calm, looping motion only after the one-shot `demo-*` entrances (components/security). Looping
+ * animations inside `.security-pausable` pause while it is off screen (PauseOffscreen sets
+ * `data-paused`). Opacity only; under reduced motion the waves are removed.
+ */
+
+.security-layer-wave {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .security-layer-wave {
+    animation: security-layer-wave 7s ease-in-out infinite both;
+  }
+}
+
+/* A brief brightening that travels outwards across the layers (staggered by inline delays). */
+@keyframes security-layer-wave {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.5;
+  }
+  28% {
+    opacity: 0;
+  }
+}
+
+/* Your store's boundary in the store-scope sketch. */
+.security-scope {
+  box-shadow:
+    0 0 0 6px rgba(8, 192, 216, 0.08),
+    0 24px 48px -20px rgba(2, 132, 199, 0.25);
+}
+
+.security-pausable[data-paused] *,
+.security-pausable[data-paused] *::before,
+.security-pausable[data-paused] *::after {
+  animation-play-state: paused !important;
+}

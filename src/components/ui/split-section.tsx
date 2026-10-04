@@ -6,8 +6,8 @@ import { cn } from "@/lib/utils";
 export type SplitPoint = { icon: IconName; text: ReactNode };
 
 /**
- * One integration area: copy and short points on one side, its live demo on the other.
- * `demoSide` alternates down the page.
+ * One page section: copy and short points on one side, its live demo on the other (Integrations,
+ * Security). `demoSide` alternates down the page.
  */
 export function SplitSection({
   id,

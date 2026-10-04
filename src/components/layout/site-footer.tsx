@@ -12,6 +12,7 @@ const LINK_COLUMNS = {
     { label: "Features", href: "/features" },
     { label: "Themes", href: "/themes" },
     { label: "Integrations", href: "/integrations" },
+    { label: "Security", href: "/security" },
     { label: "FAQ", href: "/faq" },
     { label: "Start a Page", href: "#" },
     { label: "Login", href: siteConfig.adminSignInUrl },
@@ -32,7 +33,6 @@ const LINK_COLUMNS = {
     { label: legalDocuments.privacyPolicy.navLabel, href: legalDocuments.privacyPolicy.path },
     { label: legalDocuments.terms.navLabel, href: legalDocuments.terms.path },
     { label: legalDocuments.dataDeletion.navLabel, href: legalDocuments.dataDeletion.path },
-    { label: "Security Policy", href: "#" },
     { label: "Withdrawal Policy", href: "#" },
     { label: "Pricing", href: "/pricing" },
     { label: "Refund Policy", href: "#" },
@@ -62,16 +62,14 @@ const SOCIAL_LINKS = [
   },
 ];
 
+// Only payment methods shoppers can use today (src/data/features.ts: bkash-payments, cod-payment).
+// Don't add gateways, cards, banks or wallets until they are live.
 const PAYMENT_BADGES = [
-  { label: "AMEX", className: "px-1.5 bg-[#006FCF] text-[8px] font-extrabold" },
-  { label: "bKash", className: "px-1.5 bg-[#E2136E] text-[9px] font-bold" },
-  { label: "Nagad", className: "px-1.5 bg-[#F7941D] text-[9px] font-bold" },
-  { label: "Rocket", className: "px-1.5 bg-[#8C3494] text-[8px] font-bold" },
-  { label: "upay", className: "px-1.5 bg-[#005EAA] text-[8px] font-bold" },
-  { label: "City Bank", className: "px-1.5 bg-[#D32F2F] text-[7px] font-bold uppercase" },
-  { label: "BRAC", className: "px-1.5 bg-[#003865] text-[7px] font-bold uppercase" },
-  { label: "EBL", className: "px-1.5 bg-[#E57200] text-[7px] font-bold uppercase" },
-  { label: "DBBL", className: "px-1.5 bg-[#008248] text-[7px] font-bold uppercase" },
+  { label: "bKash", className: "px-1.5 bg-[#E2136E] text-[9px] font-bold text-white" },
+  {
+    label: "Cash on delivery",
+    className: "px-2 border border-white/10 bg-slate-800 text-[8px] font-bold text-slate-300",
+  },
 ];
 
 const footerLinkClass = "text-sm text-slate-400 transition-colors hover:text-white";
@@ -238,38 +236,18 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="border-t border-white/10 pt-10 pb-4 text-left">
-          <p className="font-mono text-[11px] font-bold tracking-[0.2em] text-slate-400 uppercase">
-            PAYMENTS 100% SECURED BY SSLCOMMERZ &amp; EPS
-          </p>
-        </div>
-
-        <div className="flex flex-col items-center justify-between gap-6 pt-4 pb-4 lg:flex-row">
+        <div className="flex flex-col items-center justify-between gap-6 border-t border-white/10 pt-8 pb-4 lg:flex-row">
           <div className="order-1 flex max-w-full items-center justify-center gap-3 overflow-x-auto rounded-2xl border border-white/10 bg-white/5 px-5 py-2.5 shadow-inner lg:order-2">
             <span className="shrink-0 font-mono text-[9px] text-slate-500 uppercase">Pay With</span>
             <div className="flex shrink-0 items-center gap-1.5">
-              <div className="flex h-5 items-center justify-center rounded bg-white px-1.5">
-                <span className="text-[9px] font-extrabold tracking-tighter text-[#1A1F71]">
-                  VISA
-                </span>
-              </div>
-              <div className="flex h-5 items-center justify-center rounded bg-white px-1">
-                <div className="flex items-center -space-x-1">
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#EB001B]" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#F79E1B] opacity-90" />
-                </div>
-              </div>
               {PAYMENT_BADGES.map((badge) => (
                 <div
                   key={badge.label}
-                  className={`flex h-5 items-center justify-center rounded text-white ${badge.className}`}
+                  className={`flex h-5 items-center justify-center rounded ${badge.className}`}
                 >
                   {badge.label}
                 </div>
               ))}
-              <div className="flex h-5 items-center justify-center rounded border border-white/10 bg-slate-800 px-2 text-[8px] font-bold tracking-tight text-slate-300">
-                SSLCOMMERZ
-              </div>
             </div>
           </div>
 

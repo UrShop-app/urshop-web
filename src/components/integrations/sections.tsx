@@ -2,13 +2,13 @@ import type { ReactNode } from "react";
 
 import { Icon, type IconName } from "@/components/ui/icon";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { SplitSection } from "@/components/ui/split-section";
 
 import { BkashDemo } from "./bkash-demo";
 import { CourierDemo } from "./courier-demo";
 import { EventsDemo } from "./events-demo";
 import { OrderJourneyDemo } from "./order-journey-demo";
 import { SmsDemo } from "./sms-demo";
-import { SplitSection } from "./split-section";
 
 // Every claim here is checked against src/data/features.ts (bkash-payments, cod-payment,
 // courier-integrations, fraud-checker, ad-pixels, seo-foundation, sms-marketing, merchant-email,
