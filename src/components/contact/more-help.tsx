@@ -7,6 +7,12 @@ import { siteConfig } from "@/config/site";
 
 const HELP_LINKS: ReadonlyArray<{ icon: IconName; title: string; text: string; href: string }> = [
   {
+    icon: "contact_support",
+    title: "Read the FAQ",
+    text: "Answers about setup, payments, delivery, domains and more.",
+    href: "/faq",
+  },
+  {
     icon: "apps",
     title: "See what UrShop includes",
     text: "Every feature, with what's available now and what's still coming.",

@@ -6,9 +6,9 @@ import {
   type FeatureCategoryId,
   type MerchantFeature,
 } from "@/data/features";
+import { normalizeSearchText } from "@/lib/search-text";
 
 import { presentFeature } from "./feature-copy";
-import { normalizeSearchText } from "./search-text";
 
 /**
  * The Features page groups the dataset's 14 categories into five areas that follow a merchant's
@@ -100,7 +100,7 @@ export type ExplorerItem = {
   status: AvailabilityStatus;
   areaId: string;
   categoryTitle: string;
-  /** Normalised text the search matches against (see search-text.ts). */
+  /** Normalised text the search matches against (see lib/search-text.ts). */
   searchText: string;
 };
 

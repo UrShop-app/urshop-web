@@ -10,6 +10,7 @@ import { siteConfig } from "@/config/site";
 const LINK_COLUMNS = {
   platform: [
     { label: "Features", href: "/features" },
+    { label: "FAQ", href: "/faq" },
     { label: "Start a Page", href: "#" },
     { label: "Login", href: siteConfig.adminSignInUrl },
     { label: "Leaderboard", href: "#" },

@@ -871,7 +871,8 @@
 }
 
 /* FAQ: questions of the newly picked category rise in one after another (components/home/faq.tsx
-   sets the stagger). Opening and closing answers is a grid-rows transition done with utilities. */
+   sets the stagger). Opening and closing answers is a grid-rows transition done with utilities.
+   The FAQ page reuses the keyframes for its answers (section 10). */
 .faq-enter {
   animation: faq-enter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
@@ -1296,5 +1297,17 @@
 @media (prefers-reduced-motion: reduce) {
   .demo-live::after {
     animation: none;
+  }
+}
+
+/* 10. FAQ page ------------------------------------------------------------------------------
+ * Questions are native <details> (components/faq/faq-search.tsx). The answer rises in each time
+ * its question opens: the animation only applies while `[open]` matches, so it restarts on every
+ * open even where closed content stays rendered (`content-visibility: hidden`).
+ */
+
+@media (prefers-reduced-motion: no-preference) {
+  .faq-item[open] .faq-answer {
+    animation: faq-enter 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 }

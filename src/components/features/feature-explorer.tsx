@@ -4,12 +4,12 @@ import { useEffect, useId, useRef, useState } from "react";
 
 import { Icon, type IconName } from "@/components/ui/icon";
 import { siteConfig } from "@/config/site";
+import { normalizeSearchText } from "@/lib/search-text";
 import { cn } from "@/lib/utils";
 
 import type { ExplorerItem } from "./areas";
 import { useExplorerRequest } from "./explorer-store";
 import { FeatureRow, StatusBadge } from "./feature-row";
-import { normalizeSearchText } from "./search-text";
 
 const SUGGESTIONS = [
   "bKash",

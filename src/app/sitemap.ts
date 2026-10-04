@@ -7,6 +7,7 @@ import { siteConfig } from "@/config/site";
 const routes = [
   "/",
   "/features",
+  "/faq",
   "/about",
   "/contact",
   ...legalDocumentList.map((document) => document.path),
