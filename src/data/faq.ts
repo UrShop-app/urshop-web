@@ -647,6 +647,7 @@ export const faqCategories: ReadonlyArray<FaqCategory> = [
           "Each one uses your own account with that service, so you connect the ones you need.",
         ],
         keywords: ["integration", "apps", "connect", "third party"],
+        link: { label: "See every integration", href: "/integrations" },
       },
       {
         id: "sms",

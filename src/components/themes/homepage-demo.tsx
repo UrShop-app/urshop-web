@@ -3,11 +3,12 @@
 import { AnimatePresence, LayoutGroup, MotionConfig, motion } from "motion/react";
 import { useRef, useState, type ReactNode } from "react";
 
+import { AutoplayButton } from "@/components/ui/demo-controls";
 import { Icon } from "@/components/ui/icon";
 import { cn } from "@/lib/utils";
 
-import { AutoplayButton, EXAMPLE_PRODUCTS, Line, ProductArt, ScaledMock, Stars } from "./demo-kit";
-import { useDemoAutoplay } from "./use-demo-autoplay";
+import { EXAMPLE_PRODUCTS, Line, ProductArt, ScaledMock, Stars } from "./demo-kit";
+import { useDemoAutoplay } from "@/lib/use-demo-autoplay";
 
 type SectionId = "hero" | "trust" | "categories" | "bestsellers" | "testimonials" | "cta";
 

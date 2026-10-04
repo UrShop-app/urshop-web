@@ -2,19 +2,11 @@
 
 import { useRef } from "react";
 
+import { AutoplayButton, Segmented } from "@/components/ui/demo-controls";
 import { cn } from "@/lib/utils";
 
-import {
-  AutoplayButton,
-  EXAMPLE_PRODUCTS,
-  Glyph,
-  Line,
-  ProductArt,
-  ScaledMock,
-  Segmented,
-  THEME_LOOKS,
-} from "./demo-kit";
-import { useDemoAutoplay } from "./use-demo-autoplay";
+import { EXAMPLE_PRODUCTS, Glyph, Line, ProductArt, ScaledMock, THEME_LOOKS } from "./demo-kit";
+import { useDemoAutoplay } from "@/lib/use-demo-autoplay";
 
 type Device = "desktop" | "tablet" | "mobile";
 

@@ -2,18 +2,11 @@
 
 import { useId, useRef, useState, type CSSProperties, type ReactNode } from "react";
 
+import { AutoplayButton, Segmented } from "@/components/ui/demo-controls";
 import { cn } from "@/lib/utils";
 
-import {
-  AutoplayButton,
-  EXAMPLE_PRODUCTS,
-  Glyph,
-  PanelLabel,
-  ProductArt,
-  ScaledMock,
-  Segmented,
-} from "./demo-kit";
-import { useDemoAutoplay } from "./use-demo-autoplay";
+import { EXAMPLE_PRODUCTS, Glyph, PanelLabel, ProductArt, ScaledMock } from "./demo-kit";
+import { useDemoAutoplay } from "@/lib/use-demo-autoplay";
 
 const COLORS = [
   { value: "#0f766e", name: "Teal" },

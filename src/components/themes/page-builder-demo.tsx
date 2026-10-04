@@ -3,21 +3,20 @@
 import { AnimatePresence, LayoutGroup, MotionConfig, motion } from "motion/react";
 import { useRef, useState } from "react";
 
+import { AutoplayButton, Segmented } from "@/components/ui/demo-controls";
 import { Icon, type IconName } from "@/components/ui/icon";
 import { cn } from "@/lib/utils";
 
 import {
-  AutoplayButton,
   EXAMPLE_PRODUCTS,
   Glyph,
   Line,
   ProductArt,
   ScaledMock,
-  Segmented,
   Stars,
   THEME_LOOKS,
 } from "./demo-kit";
-import { useDemoAutoplay } from "./use-demo-autoplay";
+import { useDemoAutoplay } from "@/lib/use-demo-autoplay";
 
 type ThemeId = keyof typeof THEME_LOOKS;
 type BlockId = "hero" | "products" | "gallery" | "testimonials" | "cta";

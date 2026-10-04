@@ -4,11 +4,12 @@ import { AnimatePresence, MotionConfig, motion } from "motion/react";
 import { useRef } from "react";
 import type { ReactNode } from "react";
 
+import { AutoplayButton } from "@/components/ui/demo-controls";
 import { Icon, type IconName } from "@/components/ui/icon";
 import { cn } from "@/lib/utils";
 
-import { AutoplayButton, BRAND_GRADIENT, MiniStore, ScaledMock } from "./demo-kit";
-import { useDemoAutoplay } from "./use-demo-autoplay";
+import { BRAND_GRADIENT, MiniStore, ScaledMock } from "./demo-kit";
+import { useDemoAutoplay } from "@/lib/use-demo-autoplay";
 
 const LIVE_ACCENT = "#0f766e";
 const DRAFT_ACCENT = "#6d28d9";

@@ -2,10 +2,10 @@
 
 import { useId, useRef, useState, type CSSProperties } from "react";
 
+import { AutoplayButton } from "@/components/ui/demo-controls";
 import { cn } from "@/lib/utils";
 
 import {
-  AutoplayButton,
   BrowserFrame,
   EXAMPLE_PRODUCTS,
   Glyph,
@@ -14,7 +14,7 @@ import {
   Stars,
   THEME_LOOKS,
 } from "./demo-kit";
-import { useDemoAutoplay } from "./use-demo-autoplay";
+import { useDemoAutoplay } from "@/lib/use-demo-autoplay";
 
 const PRODUCT = EXAMPLE_PRODUCTS[0];
 const SIZES = ["Free size", "Gift box"];

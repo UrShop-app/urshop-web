@@ -3,22 +3,21 @@
 import { AnimatePresence, LayoutGroup, MotionConfig, motion } from "motion/react";
 import { useRef, type CSSProperties } from "react";
 
+import { AutoplayButton, Segmented } from "@/components/ui/demo-controls";
 import { Icon } from "@/components/ui/icon";
 import { cn } from "@/lib/utils";
 
 import {
-  AutoplayButton,
   BRAND_GRADIENT,
   BrowserFrame,
   EXAMPLE_PRODUCTS,
   Glyph,
   ProductArt,
   ScaledMock,
-  Segmented,
   Stars,
   THEME_LOOKS,
 } from "./demo-kit";
-import { useDemoAutoplay } from "./use-demo-autoplay";
+import { useDemoAutoplay } from "@/lib/use-demo-autoplay";
 
 type ThemeId = keyof typeof THEME_LOOKS;
 

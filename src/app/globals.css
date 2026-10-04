@@ -1311,3 +1311,152 @@
     animation: faq-enter 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 }
+
+/* 11. Integrations page ---------------------------------------------------------------------
+ * Connection lines with signals travelling along them (components/integrations). Transform and
+ * opacity only. Under reduced motion the lines stay and the moving signals are removed.
+ */
+
+/* Horizontal line; `.flow-line-y` makes it vertical. Packets are full-size boxes with the dot on
+   their leading edge, moved by their own size (same technique as the home Integrations links). */
+.flow-line {
+  position: relative;
+  overflow: hidden;
+}
+
+.flow-line::before {
+  position: absolute;
+  top: calc(50% - 0.5px);
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    rgba(8, 192, 216, 0.15),
+    rgba(8, 192, 216, 0.55),
+    rgba(8, 192, 216, 0.15)
+  );
+  content: "";
+}
+
+.flow-packet {
+  position: absolute;
+  inset: 0;
+  animation: integration-flow-x var(--flow-duration, 2.4s) cubic-bezier(0.45, 0, 0.55, 1)
+    var(--flow-delay, 0s) infinite;
+}
+
+/* A single signal, replayed by remounting (e.g. one per demo step). */
+.flow-shot {
+  position: absolute;
+  inset: 0;
+  animation: integration-flow-x 0.9s cubic-bezier(0.45, 0, 0.55, 1) var(--flow-delay, 0s) both;
+}
+
+.flow-packet::after,
+.flow-shot::after {
+  position: absolute;
+  top: calc(50% - 3.5px);
+  right: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--flow-color, #08c0d8);
+  box-shadow: 0 0 10px var(--flow-color, rgba(8, 192, 216, 0.7));
+  content: "";
+}
+
+/* `.flow-line-y` is vertical everywhere; `.flow-line-y-sm` only below `md` (stacked layouts). */
+.flow-line-y::before {
+  top: 0;
+  bottom: 0;
+  left: calc(50% - 0.5px);
+  width: 1px;
+  height: auto;
+  background: linear-gradient(
+    to bottom,
+    rgba(8, 192, 216, 0.15),
+    rgba(8, 192, 216, 0.55),
+    rgba(8, 192, 216, 0.15)
+  );
+}
+
+.flow-line-y .flow-packet,
+.flow-line-y .flow-shot {
+  animation-name: integration-flow-y;
+}
+
+.flow-line-y .flow-packet::after,
+.flow-line-y .flow-shot::after {
+  top: auto;
+  right: auto;
+  bottom: 0;
+  left: calc(50% - 3.5px);
+}
+
+@media (max-width: 767px) {
+  .flow-line-y-sm::before {
+    top: 0;
+    bottom: 0;
+    left: calc(50% - 0.5px);
+    width: 1px;
+    height: auto;
+    background: linear-gradient(
+      to bottom,
+      rgba(8, 192, 216, 0.15),
+      rgba(8, 192, 216, 0.55),
+      rgba(8, 192, 216, 0.15)
+    );
+  }
+
+  .flow-line-y-sm .flow-packet,
+  .flow-line-y-sm .flow-shot {
+    animation-name: integration-flow-y;
+  }
+
+  .flow-line-y-sm .flow-packet::after,
+  .flow-line-y-sm .flow-shot::after {
+    top: auto;
+    right: auto;
+    bottom: 0;
+    left: calc(50% - 3.5px);
+  }
+}
+
+/* Website chat "typing" dots. */
+.typing-dot {
+  animation: typing-dot 1.2s ease-in-out infinite;
+}
+
+.typing-dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.typing-dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes typing-dot {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.45;
+  }
+  30% {
+    transform: translateY(-3px);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flow-packet,
+  .flow-shot,
+  .hub-signal {
+    display: none;
+  }
+
+  .typing-dot {
+    animation: none;
+  }
+}

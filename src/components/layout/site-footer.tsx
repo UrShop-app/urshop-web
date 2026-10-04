@@ -11,6 +11,7 @@ const LINK_COLUMNS = {
   platform: [
     { label: "Features", href: "/features" },
     { label: "Themes", href: "/themes" },
+    { label: "Integrations", href: "/integrations" },
     { label: "FAQ", href: "/faq" },
     { label: "Start a Page", href: "#" },
     { label: "Login", href: siteConfig.adminSignInUrl },

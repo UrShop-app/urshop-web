@@ -3,11 +3,12 @@
 import { AnimatePresence, LayoutGroup, MotionConfig, motion } from "motion/react";
 import { useRef } from "react";
 
+import { AutoplayButton } from "@/components/ui/demo-controls";
 import { Icon } from "@/components/ui/icon";
 import { cn } from "@/lib/utils";
 
-import { AutoplayButton, MiniStore, ScaledMock } from "./demo-kit";
-import { useDemoAutoplay } from "./use-demo-autoplay";
+import { MiniStore, ScaledMock } from "./demo-kit";
+import { useDemoAutoplay } from "@/lib/use-demo-autoplay";
 
 type Version = { number: number; accent: string; serif: boolean; note?: string };
 
