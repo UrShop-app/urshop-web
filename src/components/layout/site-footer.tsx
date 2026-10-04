@@ -20,6 +20,7 @@ const LINK_COLUMNS = {
     { label: "Help Center", href: "#" },
     { label: "Report", href: "#" },
     { label: "Feature Request", href: "#" },
+    { label: "Partners", href: "/partners" },
     { label: "Contact", href: "/contact" },
   ],
   discover: [

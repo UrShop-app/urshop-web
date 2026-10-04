@@ -561,6 +561,14 @@
     inset 0 1.5px 2px 0 rgba(255, 255, 255, 1);
 }
 
+/* Looping animations inside `PauseOffscreen` (components/ui/pause-offscreen.tsx) pause while it is
+   off screen; it sets `data-paused`. */
+.pausable[data-paused] *,
+.pausable[data-paused] *::before,
+.pausable[data-paused] *::after {
+  animation-play-state: paused !important;
+}
+
 /* 7. Home page ----------------------------------------------------------------------------- */
 
 .how-it-works-data-line {
@@ -1463,8 +1471,8 @@
 
 /* 12. Security page -------------------------------------------------------------------------
  * Calm, looping motion only after the one-shot `demo-*` entrances (components/security). Looping
- * animations inside `.security-pausable` pause while it is off screen (PauseOffscreen sets
- * `data-paused`). Opacity only; under reduced motion the waves are removed.
+ * animations sit inside `PauseOffscreen` (`.pausable`, section 6). Opacity only; under reduced
+ * motion the waves are removed.
  */
 
 .security-layer-wave {
@@ -1498,8 +1506,121 @@
     0 24px 48px -20px rgba(2, 132, 199, 0.25);
 }
 
-.security-pausable[data-paused] *,
-.security-pausable[data-paused] *::before,
-.security-pausable[data-paused] *::after {
-  animation-play-state: paused !important;
+/* 13. Partners page -------------------------------------------------------------------------
+ * Partnership diagrams (components/partners). One-shot entrances reuse the `demo-*` classes
+ * (section 9) and connectors reuse `.flow-line` (section 11). Scroll-linked pieces are
+ * progressive enhancement like `.reveal`: without support, or with reduced motion, they show
+ * finished. Looping motion sits inside `PauseOffscreen`. Transform and opacity only.
+ */
+
+@media (prefers-reduced-motion: no-preference) {
+  /* The two sides of the hero moving in towards UrShop. */
+  .partners-from-start {
+    animation: partners-from-start 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s) both;
+  }
+
+  .partners-from-end {
+    animation: partners-from-end 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s) both;
+  }
+
+  /* Example market: storefront tiles lighting up (same rhythm as the shop grid). */
+  .partners-market-tile {
+    animation: shop-grid-tile 9s ease-in-out var(--delay, 0s) infinite;
+  }
+
+  /* A soft halo on the outcome a partnership produces. */
+  .partners-glow {
+    animation: partners-glow 3.6s ease-in-out var(--delay, 0s) infinite;
+  }
+}
+
+@keyframes partners-from-start {
+  from {
+    opacity: 0;
+    transform: translateX(-36px);
+  }
+}
+
+@keyframes partners-from-end {
+  from {
+    opacity: 0;
+    transform: translateX(36px);
+  }
+}
+
+@keyframes partners-glow {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.partners-market-tile {
+  opacity: 0.8;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .partners-market-tile {
+    opacity: 0;
+  }
+}
+
+/* "You + UrShop": the two sides close in as the regional section scrolls into view. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .partners-join-start,
+    .partners-join-end {
+      animation: linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 35%;
+    }
+
+    .partners-join-start {
+      animation-name: partners-from-start;
+    }
+
+    .partners-join-end {
+      animation-name: partners-from-end;
+    }
+
+    /* "How a partnership starts": the shared line fills as the steps scroll in. */
+    .partners-growth {
+      view-timeline: --partners-growth block;
+    }
+
+    .partners-growth-fill {
+      transform-origin: left center;
+      animation: partners-grow-x linear both;
+      animation-timeline: --partners-growth;
+      animation-range: entry 30% cover 45%;
+    }
+
+    .partners-growth-fill-y {
+      transform-origin: center top;
+      animation: partners-grow-y linear both;
+      animation-timeline: --partners-growth;
+      animation-range: entry 20% cover 50%;
+    }
+  }
+}
+
+@keyframes partners-grow-x {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes partners-grow-y {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .partners-glow {
+    display: none;
+  }
 }

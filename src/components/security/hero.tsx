@@ -8,7 +8,7 @@ import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 
 import { at } from "./demo-kit";
-import { PauseOffscreen } from "./pause-offscreen";
+import { PauseOffscreen } from "@/components/ui/pause-offscreen";
 
 const heroTiles: ReadonlyArray<ShopGridTile> = [
   { x: -13, y: 3, delay: -2 },

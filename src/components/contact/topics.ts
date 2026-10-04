@@ -41,3 +41,13 @@ export const CONTACT_TOPICS = [
 }>;
 
 export type ContactTopicId = (typeof CONTACT_TOPICS)[number]["id"];
+
+/**
+ * Link to the contact form with a topic (and optionally a subject) already filled in. The form
+ * reads these query parameters on load (see `contact-form.tsx`); nothing else uses them.
+ */
+export function contactHref({ topic, subject }: { topic: ContactTopicId; subject?: string }) {
+  const params = new URLSearchParams({ topic });
+  if (subject) params.set("subject", subject);
+  return `/contact?${params.toString()}#contact-form`;
+}

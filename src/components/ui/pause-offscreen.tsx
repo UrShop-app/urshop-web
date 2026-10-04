@@ -5,8 +5,8 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * Pauses the looping CSS animations inside it while it is off screen (`.security-pausable` in
- * globals.css). The markup stays server-rendered and is passed in as `children`.
+ * Pauses the looping CSS animations inside it while it is off screen (`.pausable` in globals.css,
+ * section 6). The markup stays server-rendered and is passed in as `children`.
  */
 export function PauseOffscreen({
   children,
@@ -32,7 +32,7 @@ export function PauseOffscreen({
     <div
       ref={ref}
       data-paused={isInView ? undefined : "true"}
-      className={cn("security-pausable", className)}
+      className={cn("pausable", className)}
     >
       {children}
     </div>

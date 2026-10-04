@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 import { DomainDemo } from "./domain-demo";
 import { DraftLiveDemo } from "./draft-live-demo";
 import { OrderReviewDemo } from "./order-review-demo";
-import { PauseOffscreen } from "./pause-offscreen";
+import { PauseOffscreen } from "@/components/ui/pause-offscreen";
 import { PermissionMatrixDemo } from "./permission-matrix-demo";
 import { TeamAccessDemo } from "./team-access-demo";
 

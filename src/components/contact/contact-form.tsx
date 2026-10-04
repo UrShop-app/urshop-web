@@ -1,12 +1,13 @@
 "use client";
 
-import { useId, useState, type ChangeEvent, type FormEvent, type ReactNode } from "react";
+import { useSearchParams } from "next/navigation";
+import { Suspense, useId, useState, type ChangeEvent, type FormEvent, type ReactNode } from "react";
 
 import { Icon } from "@/components/ui/icon";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 
-import { CONTACT_TOPICS } from "./topics";
+import { CONTACT_TOPICS, type ContactTopicId } from "./topics";
 
 /** Field names, in the order they appear (the first invalid one gets focus). */
 const FIELDS = ["name", "email", "phone", "business", "topic", "subject", "message"] as const;
@@ -88,8 +89,36 @@ function openEmailDraft(values: ContactValues) {
 const inputClass =
   "block w-full rounded-2xl border border-slate-200 bg-white/90 px-4 py-3 text-base text-slate-900 shadow-[0_1px_2px_rgba(15,23,42,0.04)] transition-[border-color,box-shadow] duration-200 placeholder:text-slate-400 focus:border-brand focus:ring-4 focus:ring-brand/15 focus:outline-none aria-invalid:border-rose-400 aria-invalid:focus:ring-rose-100";
 
-/** Contact form UI. Validates on the client; see `openEmailDraft` for what submitting does. */
+const SUBJECT_MAX_LENGTH = 150;
+
+/** Values a link can fill in ahead of time (`contactHref` in topics.ts). */
+type ContactPreset = { topic?: ContactTopicId; subject?: string };
+
+function presetFrom(params: Pick<URLSearchParams, "get">): ContactPreset {
+  const topic = CONTACT_TOPICS.find((item) => item.id === params.get("topic"))?.id;
+  const subject = params.get("subject")?.trim().slice(0, SUBJECT_MAX_LENGTH) || undefined;
+  return { topic, subject };
+}
+
+/**
+ * Contact form UI. Validates on the client; see `openEmailDraft` for what submitting does.
+ * The form is prerendered empty; on the client, a `?topic=` / `?subject=` in the URL fills it in.
+ */
 export function ContactForm() {
+  return (
+    <Suspense fallback={<ContactFormFields preset={{}} />}>
+      <ContactFormFromUrl />
+    </Suspense>
+  );
+}
+
+function ContactFormFromUrl() {
+  const preset = presetFrom(useSearchParams());
+  // Remount when the preset changes so the uncontrolled fields pick up the new defaults.
+  return <ContactFormFields key={`${preset.topic}|${preset.subject}`} preset={preset} />;
+}
+
+function ContactFormFields({ preset }: { preset: ContactPreset }) {
   const idPrefix = useId();
   const [errors, setErrors] = useState<FieldErrors>({});
   const [hasOpenedDraft, setHasOpenedDraft] = useState(false);
@@ -198,6 +227,7 @@ export function ContactForm() {
                 name="topic"
                 value={topic.id}
                 required
+                defaultChecked={topic.id === preset.topic}
                 // Focus target for the group's error (the first radio).
                 id={index === 0 ? idFor("topic") : undefined}
                 className="size-4 shrink-0 accent-brand-dark"
@@ -215,7 +245,8 @@ export function ContactForm() {
           {...fieldProps("subject")}
           type="text"
           required
-          maxLength={150}
+          maxLength={SUBJECT_MAX_LENGTH}
+          defaultValue={preset.subject}
           className={inputClass}
         />
       </Field>
