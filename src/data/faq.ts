@@ -400,6 +400,7 @@ export const faqCategories: ReadonlyArray<FaqCategory> = [
           "Themes are designed and maintained by UrShop. You can't upload your own code.",
         ],
         keywords: ["theme", "design", "logo", "colors", "fonts", "template"],
+        link: { label: "Explore themes", href: "/themes" },
       },
       {
         id: "preview-publish",

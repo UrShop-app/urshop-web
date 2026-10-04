@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-import { SectionHeading } from "./section-heading";
+import { SectionHeading } from "@/components/ui/section-heading";
 
 // Every "in practice" line must stay true for every store today (see src/data/features.ts).
 const PRINCIPLES: ReadonlyArray<{ title: string; text: string; inPractice: ReactNode }> = [

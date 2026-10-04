@@ -1,6 +1,5 @@
 import { Icon } from "@/components/ui/icon";
-
-import { SectionHeading } from "./section-heading";
+import { SectionHeading } from "@/components/ui/section-heading";
 
 // Each "after" is a capability every store has today (see src/data/features.ts).
 const SHIFTS: ReadonlyArray<{ before: string; after: string }> = [

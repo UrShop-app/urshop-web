@@ -1,9 +1,8 @@
 import Link from "next/link";
 
 import { Icon } from "@/components/ui/icon";
+import { SectionHeading } from "@/components/ui/section-heading";
 import { cn } from "@/lib/utils";
-
-import { SectionHeading } from "./section-heading";
 
 // Stages a shop moves through. Only name what every store can use today (see src/data/features.ts).
 const STAGES: ReadonlyArray<{ label: string; title: string; text: string }> = [

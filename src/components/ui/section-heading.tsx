@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
-/** Eyebrow pill, h2 and optional intro, as used by the Features page section headers. */
+/** Eyebrow pill, h2 and optional intro for a page section header (About, Themes). */
 export function SectionHeading({
   id,
   eyebrow,

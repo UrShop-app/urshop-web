@@ -7,6 +7,7 @@ import { siteConfig } from "@/config/site";
 const routes = [
   "/",
   "/features",
+  "/themes",
   "/faq",
   "/about",
   "/contact",

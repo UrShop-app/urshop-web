@@ -1,6 +1,5 @@
 import { Icon, type IconName } from "@/components/ui/icon";
-
-import { SectionHeading } from "./section-heading";
+import { SectionHeading } from "@/components/ui/section-heading";
 
 // One shopper's order, start to finish. Each step is how every store works today
 // (see src/data/features.ts); bKash and couriers use the merchant's own accounts.

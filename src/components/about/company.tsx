@@ -1,10 +1,9 @@
 import Link from "next/link";
 
 import { Fact, FactList } from "@/components/ui/fact-list";
+import { SectionHeading } from "@/components/ui/section-heading";
 import { legalDocumentList, legalDocuments } from "@/config/legal";
 import { siteConfig } from "@/config/site";
-
-import { SectionHeading } from "./section-heading";
 
 const linkClass =
   "font-semibold text-brand-dark underline decoration-brand/40 underline-offset-4 transition-colors hover:decoration-brand-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-dark";
