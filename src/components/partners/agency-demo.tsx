@@ -120,7 +120,7 @@ function BuildVisual() {
           >
             <Icon name={step.icon} className="scale-75 text-brand" />
             {step.label}
-            <Check delay={0.45 + index * 0.35} className="scale-75" />
+            <Check delay={0.45 + index * 0.35} />
           </li>
         ))}
       </ul>
