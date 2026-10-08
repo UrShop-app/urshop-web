@@ -1,25 +1,16 @@
 import type { MetadataRoute } from "next";
 
-import { legalDocumentList } from "@/config/legal";
+import { staticRoutes } from "@/config/routes";
 import { siteConfig } from "@/config/site";
-
-// Add each public page here when it ships.
-const routes = [
-  "/",
-  "/features",
-  "/themes",
-  "/integrations",
-  "/security",
-  "/faq",
-  "/resources",
-  "/about",
-  "/partners",
-  "/contact",
-  "/report",
-  "/feature-request",
-  ...legalDocumentList.map((document) => document.path),
-];
+import { getAllBlogPosts, getBlogPostPath } from "@/data/blog";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return routes.map((route) => ({ url: new URL(route, siteConfig.url).toString() }));
+  return [
+    ...staticRoutes.map((route) => ({ url: new URL(route, siteConfig.url).toString() })),
+    // Every article, automatically; `updatedAt` is edited by hand, so it's a truthful date.
+    ...getAllBlogPosts().map((post) => ({
+      url: new URL(getBlogPostPath(post.slug), siteConfig.url).toString(),
+      lastModified: post.updatedAt,
+    })),
+  ];
 }

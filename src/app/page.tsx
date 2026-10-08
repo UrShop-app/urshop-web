@@ -1,6 +1,7 @@
 import { AmbientBackdrop } from "@/components/layout/ambient-backdrop";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { BlogPreview } from "@/components/home/blog";
 import { ClosingCta } from "@/components/home/closing-cta";
 import { Faq } from "@/components/home/faq";
 import { Hero, HeroBackdrop } from "@/components/home/hero";
@@ -33,6 +34,7 @@ export default function HomePage() {
         <Integrations />
         <Testimonials />
         <Faq />
+        <BlogPreview />
         <ClosingCta />
       </main>
 

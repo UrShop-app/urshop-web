@@ -5,8 +5,9 @@
  * Rules for editors:
  * - Every entry points at real, live content on this site. Never add a resource before the page
  *   it links to exists, and never invent articles, dates, authors or view counts.
- * - Claims follow `src/data/features.ts` (canonical). FAQ and Features entries take their copy
- *   from `src/data/faq.ts` and the Features page areas, so they can't drift apart.
+ * - Claims follow `src/data/features.ts` (canonical). FAQ, Features and article entries take their
+ *   copy from `src/data/faq.ts`, the Features page areas and `src/data/blog`, so they can't drift
+ *   apart. The blog is the canonical home of articles; it must never import this file.
  * - A type only shows as a filter once at least one resource has it (see `resourceTypesInUse`).
  *   When guides, articles or videos ship, add their entries here with the new `type`.
  * - Ids are stable (used for search and React keys); don't rename them once published.
@@ -14,12 +15,18 @@
 
 import { featureAreas } from "@/components/features/areas";
 import type { IconName } from "@/components/ui/icon";
+import {
+  blogCategories,
+  getBlogPostBySlug,
+  getBlogPostPath,
+  getBlogPostReadingTime,
+} from "@/data/blog";
 import { faqById, faqCategories } from "@/data/faq";
 import { integrationsByStatus } from "@/data/integrations";
 
 /**
- * Content formats. Only `overview` and `answers` have content today; the others are the formats
- * the hub is meant to grow into and stay invisible until an entry uses them.
+ * Content formats. `overview`, `answers` and `article` have content today; the others are the
+ * formats the hub is meant to grow into and stay invisible until an entry uses them.
  */
 export type ResourceTypeId =
   "overview" | "answers" | "guide" | "article" | "tutorial" | "video" | "case-study" | "download";
@@ -160,6 +167,23 @@ function featureArea(areaId: string, goal: ResourceGoalId, keywords?: ReadonlyAr
   } satisfies Resource;
 }
 
+/** A blog article as a resource; copy, reading time and search terms come from `src/data/blog`. */
+function blogArticle(slug: string, goal: ResourceGoalId): Resource {
+  const post = getBlogPostBySlug(slug);
+  if (!post) throw new Error(`Resources: unknown blog article "${slug}".`);
+  return {
+    id: `article-${post.slug}`,
+    title: post.title,
+    description: post.excerpt,
+    href: getBlogPostPath(post.slug),
+    type: "article",
+    goal,
+    icon: blogCategories[post.category].icon,
+    meta: `${getBlogPostReadingTime(post)} min read`,
+    keywords: [...post.keywords, ...post.tags],
+  };
+}
+
 const paymentAndDeliveryNames = integrationsByStatus("connect")
   .filter((integration) => integration.group === "payments" || integration.group === "delivery")
   .map((integration) => integration.name);
@@ -175,6 +199,7 @@ function listNames(names: ReadonlyArray<string>) {
  */
 export const resources: ReadonlyArray<Resource> = [
   // Start selling online
+  blogArticle("how-to-start-online-store-bangladesh", "start-selling"),
   {
     id: "features",
     title: "Everything UrShop can do",
@@ -185,6 +210,7 @@ export const resources: ReadonlyArray<Resource> = [
     icon: "apps",
     keywords: ["platform", "capabilities", "what can", "ecommerce platform"],
   },
+  blogArticle("facebook-page-vs-ecommerce-website-bangladesh", "start-selling"),
   faqTopic("getting-started", "start-selling", {
     title: "Getting started",
     keywords: ["new store", "launch", "first steps", "beginner"],
@@ -290,12 +316,15 @@ export const resources: ReadonlyArray<Resource> = [
     icon: "local_shipping",
     keywords: ["pathao", "redx", "steadfast", "courier", "delivery", "shipping"],
   },
+  blogArticle("bkash-cash-on-delivery-ecommerce-bangladesh", "payments-delivery"),
+  blogArticle("pathao-vs-redx-vs-steadfast-ecommerce-courier", "payments-delivery"),
   faqTopic("payments-delivery", "payments-delivery", {
     keywords: ["bkash", "cod", "secure cod", "pathao", "redx", "steadfast"],
   }),
 
   // Market & grow
   featureArea("grow", "marketing-growth", ["analytics", "ads", "customers", "crm"]),
+  blogArticle("ecommerce-seo-bangladesh", "marketing-growth"),
   {
     id: "measurement",
     title: "Measure your ads",
@@ -395,7 +424,7 @@ export const learningPath: ReadonlyArray<LearningStep> = [
     label: "Launch",
     title: "Open your store",
     icon: "rocket_launch",
-    href: "/faq#getting-started",
+    href: getBlogPostPath("how-to-start-online-store-bangladesh"),
   },
   { label: "Customize", title: "Make it your brand", icon: "palette", href: "/themes" },
   { label: "Connect", title: "Add payments & couriers", icon: "hub", href: "/integrations" },
@@ -405,7 +434,7 @@ export const learningPath: ReadonlyArray<LearningStep> = [
     label: "Grow",
     title: "Reach more shoppers",
     icon: "trending_up",
-    href: "/faq#marketing-analytics",
+    href: getBlogPostPath("ecommerce-seo-bangladesh"),
   },
 ];
 

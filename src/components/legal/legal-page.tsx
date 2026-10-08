@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { TableOfContents } from "@/components/ui/table-of-contents";
 import { legalDocumentList, type LegalDocument } from "@/config/legal";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
@@ -82,7 +83,7 @@ export function LegalPage({
 
           <div className="mt-8 grid gap-8 sm:mt-10 lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-12">
             <aside className="print:hidden">
-              <TableOfContents sections={sections} />
+              <TableOfContents entries={sections} />
             </aside>
 
             <article className="legal-prose max-w-[70ch] rounded-card border border-slate-200 bg-white px-5 py-8 shadow-sm sm:px-10 sm:py-10 print:border-0 print:p-0 print:shadow-none">
@@ -106,55 +107,5 @@ export function LegalPage({
         <SiteFooter />
       </div>
     </div>
-  );
-}
-
-/** Collapsible on small screens (native <details>, no JS), always open and sticky on desktop. */
-function TableOfContents({ sections }: { sections: ReadonlyArray<LegalSection> }) {
-  const links = (
-    <ol className="space-y-1 border-l border-slate-200">
-      {sections.map((section) => (
-        <li key={section.id}>
-          <a
-            href={`#${section.id}`}
-            className="-ml-px block border-l-2 border-transparent py-1.5 pl-4 text-sm leading-snug text-slate-600 transition-colors hover:border-brand-dark hover:text-slate-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-dark"
-          >
-            {section.title}
-          </a>
-        </li>
-      ))}
-    </ol>
-  );
-
-  return (
-    <>
-      <details className="group rounded-2xl border border-slate-200 bg-white lg:hidden">
-        <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-sm font-bold text-slate-900 [&::-webkit-details-marker]:hidden">
-          On this page
-          <svg
-            className="h-4 w-4 shrink-0 text-slate-500 transition-transform group-open:rotate-180"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            aria-hidden="true"
-          >
-            <path
-              fillRule="evenodd"
-              d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 11.17l3.71-3.94a.75.75 0 1 1 1.08 1.04l-4.25 4.5a.75.75 0 0 1-1.08 0l-4.25-4.5a.75.75 0 0 1 .02-1.06z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </summary>
-        <nav aria-label="On this page" className="px-5 pb-5">
-          {links}
-        </nav>
-      </details>
-
-      <nav aria-label="On this page" className="sticky top-36 hidden lg:block">
-        <p className="mb-3 text-xs font-bold tracking-[0.18em] text-slate-500 uppercase">
-          On this page
-        </p>
-        {links}
-      </nav>
-    </>
   );
 }

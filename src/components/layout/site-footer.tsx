@@ -15,6 +15,7 @@ const LINK_COLUMNS = {
     { label: "Security", href: "/security" },
     { label: "FAQ", href: "/faq" },
     { label: "Resources", href: "/resources" },
+    { label: "Blog", href: "/blog" },
     { label: "Start a Page", href: "#" },
     { label: "Login", href: siteConfig.adminSignInUrl },
     { label: "Leaderboard", href: "#" },
