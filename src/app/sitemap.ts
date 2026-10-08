@@ -14,6 +14,8 @@ const routes = [
   "/about",
   "/partners",
   "/contact",
+  "/report",
+  "/feature-request",
   ...legalDocumentList.map((document) => document.path),
 ];
 

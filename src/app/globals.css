@@ -1624,3 +1624,41 @@
     display: none;
   }
 }
+
+/* 14. Report and Feature request pages ------------------------------------------------------
+ * components/support-intake. One-shot entrances on load (stagger via `--d`), and a soft ring
+ * behind the success check. With reduced motion everything shows finished and the ring is hidden.
+ */
+
+.intake-success-ring {
+  background: rgba(8, 192, 216, 0.28);
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .intake-rise {
+    animation: intake-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s) both;
+  }
+
+  .intake-success-ring {
+    animation: intake-success-ring 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.35s both;
+  }
+}
+
+@keyframes intake-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+
+@keyframes intake-success-ring {
+  from {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.9);
+  }
+}
