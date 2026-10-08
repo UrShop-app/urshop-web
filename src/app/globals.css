@@ -1662,3 +1662,415 @@
     transform: scale(1.9);
   }
 }
+
+/* 15. Resources page ------------------------------------------------------------------------
+ * components/resources. Search highlights, the filter entrance (an element re-runs its animation
+ * each time it is un-hidden), the active goal tile, the featured order-journey sketch and the
+ * learning-path rail. With reduced motion everything shows finished and static.
+ */
+
+.resource-mark {
+  border-radius: 4px;
+  background: rgba(186, 230, 253, 0.85);
+  color: inherit;
+  box-decoration-break: clone;
+}
+
+/* Goal tiles are solid white with a defined edge (not glass), so they read clearly against the
+   pale page; the tinted sketch inside carries the color. */
+.goal-tile {
+  background: #fff;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow:
+    0 1px 2px rgba(15, 23, 42, 0.04),
+    0 18px 40px -22px rgba(2, 132, 199, 0.28);
+}
+
+.goal-tile:hover {
+  border-color: rgba(8, 192, 216, 0.35);
+  box-shadow:
+    0 1px 2px rgba(15, 23, 42, 0.04),
+    0 28px 52px -24px rgba(2, 132, 199, 0.38);
+}
+
+.goal-tile.goal-tile-active {
+  border-color: #08c0d8;
+  box-shadow:
+    0 0 0 3px rgba(8, 192, 216, 0.18),
+    0 28px 52px -24px rgba(2, 132, 199, 0.38);
+}
+
+/* Featured: a rail in the gutter left of the steps, a dot per step, and a packet running down. */
+.featured-journey {
+  padding-left: 1.75rem;
+}
+
+.featured-rail {
+  position: absolute;
+  top: 1.75rem;
+  bottom: 1.75rem;
+  left: 0.5rem;
+  width: 2px;
+  border-radius: 9999px;
+  background: linear-gradient(
+    to bottom,
+    rgba(8, 192, 216, 0.15),
+    rgba(8, 192, 216, 0.55),
+    rgba(8, 192, 216, 0.15)
+  );
+}
+
+.featured-step::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: calc(-1.25rem - 5px);
+  width: 10px;
+  height: 10px;
+  border: 2px solid #08c0d8;
+  border-radius: 9999px;
+  background: #fff;
+  transform: translateY(-50%);
+}
+
+.featured-packet {
+  display: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* A parcel riding the rail. */
+  .featured-packet {
+    position: absolute;
+    left: 50%;
+    display: grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 9999px;
+    background: #fff;
+    color: #0369a1;
+    box-shadow:
+      0 0 0 2px #08c0d8,
+      0 6px 16px -4px rgba(8, 192, 216, 0.7);
+    translate: -50% -50%;
+    animation: featured-packet 5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  }
+
+  .featured-packet .material-symbols-outlined {
+    scale: 0.62;
+  }
+
+  .featured-step {
+    animation: featured-step 5s ease-in-out infinite;
+    animation-delay: calc(var(--step, 0) * 1s - 0.4s);
+  }
+
+  .resource-enter {
+    animation: resource-enter 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .resource-panel:not([hidden]) {
+    animation: resource-enter 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+
+@keyframes featured-packet {
+  from {
+    top: 0;
+    opacity: 0;
+    scale: 0.6;
+  }
+  8%,
+  92% {
+    opacity: 1;
+    scale: 1;
+  }
+  to {
+    top: 100%;
+    opacity: 0;
+    scale: 0.6;
+  }
+}
+
+@keyframes featured-step {
+  0%,
+  30%,
+  100% {
+    box-shadow: 0 10px 24px -14px rgba(2, 132, 199, 0.35);
+  }
+  12% {
+    box-shadow:
+      0 14px 30px -14px rgba(8, 192, 216, 0.55),
+      0 0 0 2px rgba(8, 192, 216, 0.35);
+  }
+}
+
+@keyframes resource-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+/* Learning path: vertical rail through the numbered nodes on small screens, horizontal from lg.
+   The fill grows as the path scrolls into view; without scroll-driven animation it's full. */
+.learning-rail {
+  position: absolute;
+  top: 1.5rem;
+  bottom: 1.5rem;
+  left: calc(1.5rem - 1px);
+  width: 2px;
+  border-radius: 9999px;
+  background: rgba(148, 163, 184, 0.25);
+  overflow: hidden;
+}
+
+.learning-rail-fill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, #08c0d8, #0284c7);
+  transform-origin: top;
+}
+
+@media (min-width: 64rem) {
+  .learning-rail {
+    top: calc(1.5rem - 1px);
+    bottom: auto;
+    left: calc(100% / 12);
+    right: calc(100% / 12);
+    width: auto;
+    height: 2px;
+  }
+
+  .learning-rail-fill {
+    background: linear-gradient(to right, #08c0d8, #0284c7);
+    transform-origin: left;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .learning-rail-fill {
+      animation: learning-fill-y linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 60%;
+    }
+
+    @media (min-width: 64rem) {
+      .learning-rail-fill {
+        animation-name: learning-fill-x;
+      }
+    }
+  }
+}
+
+@keyframes learning-fill-y {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+@keyframes learning-fill-x {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+/* Goal sketches (components/resources/goal-art.tsx). Loops are staggered with `--d`; the resting
+   style is the finished picture, so reduced motion shows it still. */
+.art-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.55) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.55) 1px, transparent 1px);
+  background-size: 18px 18px;
+  mask-image: radial-gradient(ellipse at center, #000 30%, transparent 80%);
+}
+
+.lead-tile-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 22px 22px;
+  mask-image: linear-gradient(to bottom left, #000, transparent 70%);
+}
+
+.art-truck {
+  left: calc(100% - 3.5rem);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .art-loop-in {
+    animation: art-loop-in 6s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s) infinite both;
+  }
+
+  .art-palette {
+    animation: art-palette 6s ease-in-out infinite;
+  }
+
+  .art-ring {
+    animation: art-ring 6s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  }
+
+  .art-truck {
+    animation: art-truck 4s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  }
+
+  .art-pulse {
+    animation: art-pulse 2.4s ease-out infinite;
+  }
+
+  .art-bar {
+    transform-origin: bottom;
+    animation: art-bar 2.8s ease-in-out var(--d, 0s) infinite alternate;
+  }
+
+  .art-draw {
+    stroke-dasharray: 1;
+    animation: art-draw 5s ease-in-out infinite;
+  }
+
+  .art-float {
+    animation: art-float 3.6s ease-in-out var(--d, 0s) infinite;
+  }
+
+  .art-toggle-track {
+    animation: art-toggle-track 4s ease-in-out var(--d, 0s) infinite;
+  }
+
+  .art-toggle-knob {
+    animation: art-toggle-knob 4s ease-in-out var(--d, 0s) infinite;
+  }
+}
+
+@keyframes art-loop-in {
+  0% {
+    opacity: 0;
+    transform: translateY(6px) scale(0.92);
+  }
+  10%,
+  84% {
+    opacity: 1;
+    transform: none;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes art-palette {
+  0%,
+  28%,
+  100% {
+    background-color: #08c0d8;
+  }
+  36%,
+  61% {
+    background-color: #6366f1;
+  }
+  69%,
+  94% {
+    background-color: #f59e0b;
+  }
+}
+
+/* Swatches are 14px with a 6px gap: the ring steps 20px at a time, in time with art-palette. */
+@keyframes art-ring {
+  0%,
+  28%,
+  100% {
+    translate: 0;
+  }
+  36%,
+  61% {
+    translate: 20px;
+  }
+  69%,
+  94% {
+    translate: 40px;
+  }
+}
+
+@keyframes art-truck {
+  0% {
+    left: 0;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  70%,
+  88% {
+    left: calc(100% - 3.5rem);
+    opacity: 1;
+  }
+  100% {
+    left: calc(100% - 3.5rem);
+    opacity: 0;
+  }
+}
+
+@keyframes art-pulse {
+  from {
+    opacity: 0.9;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.8);
+  }
+}
+
+@keyframes art-bar {
+  from {
+    transform: scaleY(0.4);
+  }
+}
+
+@keyframes art-draw {
+  0% {
+    stroke-dashoffset: 1;
+  }
+  50%,
+  85% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes art-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes art-toggle-track {
+  0%,
+  40%,
+  100% {
+    background-color: #08c0d8;
+  }
+  50%,
+  90% {
+    background-color: #cbd5e1;
+  }
+}
+
+@keyframes art-toggle-knob {
+  0%,
+  40%,
+  100% {
+    translate: 0;
+  }
+  50%,
+  90% {
+    translate: -10px;
+  }
+}

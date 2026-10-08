@@ -13,6 +13,7 @@ import {
 } from "react";
 import { flushSync } from "react-dom";
 
+import { DisclosureToggle } from "@/components/ui/disclosure-toggle";
 import { Icon } from "@/components/ui/icon";
 import { normalizeSearchText } from "@/lib/search-text";
 import { cn } from "@/lib/utils";
@@ -223,25 +224,6 @@ export function FaqJumpLink({
   );
 }
 
-const BRAND_GRADIENT = "linear-gradient(135deg, rgb(2, 132, 199) 0%, rgb(8, 192, 216) 100%)";
-
-/** Round +/- indicator in the home page FAQ style, driven by the parent `<details>` (`group`). */
-function FaqToggle() {
-  return (
-    <span
-      aria-hidden="true"
-      className="relative flex size-9 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-brand transition-[border-color,box-shadow,color] duration-300 group-open:border-transparent group-open:text-white group-open:shadow-[0_8px_18px_-6px_rgba(8,192,216,0.6)] group-hover:border-brand/40 motion-reduce:transition-none"
-    >
-      <span
-        className="absolute inset-0 rounded-full opacity-0 transition-opacity duration-300 group-open:opacity-100 motion-reduce:transition-none"
-        style={{ background: BRAND_GRADIENT }}
-      />
-      <span className="absolute h-0.5 w-3.5 rounded-full bg-current" />
-      <span className="absolute h-3.5 w-0.5 rounded-full bg-current transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-open:rotate-90 motion-reduce:transition-none" />
-    </span>
-  );
-}
-
 /**
  * One question as a native disclosure (`<details>`), so it works without JavaScript and the
  * answer is always in the page. Opens itself when the URL fragment or a jump link points at it,
@@ -285,7 +267,7 @@ export function FaqQuestionItem({
           <span className="flex-1 text-base font-semibold text-slate-800 transition-colors duration-300 group-open:text-slate-900 group-hover:text-brand sm:text-lg">
             {question}
           </span>
-          <FaqToggle />
+          <DisclosureToggle />
         </summary>
         <div className="faq-answer px-4 pb-6 sm:pr-20 sm:pl-6">{children}</div>
       </details>

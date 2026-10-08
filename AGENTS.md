@@ -47,6 +47,10 @@ something to `ui/` only once a second page needs it.
 
 ## Conventions
 
+- **Copy: short and impactful. Show, don't tell.** Visitors skim; they don't read paragraphs.
+  Headlines of a few words, section intros one short sentence (or none), card text one line.
+  Prefer a visual demonstration (an animated sketch, illustration or demo) over explaining in
+  words. Long detail belongs on the page it describes (FAQ, Features), not repeated everywhere.
 - **Server Components by default.** Add `"use client"` only to the interactive leaf (tabs, toggles,
   observers, animation) and pass static markup to it as `children`
   (see `components/layout/floating-header.tsx`).
