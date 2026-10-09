@@ -29,3 +29,8 @@ export function PostCardMeta({ post, className }: { post: BlogPost; className?: 
     </p>
   );
 }
+
+/** Fragment id of an article's card on the blog index (the hero's topic links jump to it). */
+export function blogCardId(post: BlogPost) {
+  return `post-${post.slug}`;
+}

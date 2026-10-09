@@ -1,3 +1,4 @@
+import { PersonAvatar, type PersonPortrait } from "@/components/ui/person-avatar";
 import { cn } from "@/lib/utils";
 
 import { BRAND_GRADIENT, Bar, Check, Label, Panel, SceneFrame, Stack, at } from "./scene-kit";
@@ -180,13 +181,17 @@ export function PixelsScene() {
   );
 }
 
-const CUSTOMERS: ReadonlyArray<{ initials: string; tags: string[]; sms: boolean; email: boolean }> =
-  [
-    { initials: "NJ", tags: ["Repeat"], sms: true, email: true },
-    { initials: "RA", tags: ["Newsletter"], sms: false, email: true },
-    { initials: "TK", tags: [], sms: true, email: false },
-    { initials: "MH", tags: ["Repeat"], sms: true, email: true },
-  ];
+const CUSTOMERS: ReadonlyArray<{
+  portrait: PersonPortrait;
+  tags: string[];
+  sms: boolean;
+  email: boolean;
+}> = [
+  { portrait: "hijab", tags: ["Repeat"], sms: true, email: true },
+  { portrait: "creator", tags: ["Newsletter"], sms: false, email: true },
+  { portrait: "founder", tags: [], sms: true, email: false },
+  { portrait: "panjabi", tags: ["Repeat"], sms: true, email: true },
+];
 
 function Consent({ label, granted }: { label: string; granted: boolean }) {
   return (
@@ -218,7 +223,7 @@ export function CustomersScene() {
         </div>
         {CUSTOMERS.map((customer, index) => (
           <div
-            key={customer.initials}
+            key={customer.portrait}
             className={cn(
               "demo-in flex items-center gap-2.5 rounded-xl px-2 py-2",
               index === 0 && "bg-brand-light/50",
@@ -226,9 +231,7 @@ export function CustomersScene() {
             )}
             style={at(0.3 + index * 0.2)}
           >
-            <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-slate-100 text-[10px] font-bold text-slate-600">
-              {customer.initials}
-            </span>
+            <PersonAvatar portrait={customer.portrait} size={28} className="size-7" />
             <span className="min-w-0 flex-1 space-y-1.5">
               <Bar className="w-2/3" />
               <span className="flex gap-1">

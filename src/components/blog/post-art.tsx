@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import { Icon } from "@/components/ui/icon";
 import { blogCategories, type BlogPost } from "@/data/blog";
-import { getBlogHeroImage } from "@/lib/blog-images";
+import { getBlogCardImage, type BlogCardImageKind } from "@/lib/blog-images";
 import { cn } from "@/lib/utils";
 
 /**
@@ -13,28 +13,36 @@ import { cn } from "@/lib/utils";
 export function PostArt({
   post,
   size = "default",
+  kind = "hero",
+  sizes,
   className,
 }: {
   post: BlogPost;
   size?: "default" | "large";
+  /** Which shape of the article's images to use (docs/blog-images.md). */
+  kind?: BlogCardImageKind;
+  /** `sizes` for the image when the default for `size` doesn't fit the layout. */
+  sizes?: string;
   className?: string;
 }) {
   const category = blogCategories[post.category];
-  const image = getBlogHeroImage(post);
+  const image = getBlogCardImage(post, kind);
 
   if (image) {
     return (
-      <div className={cn("relative overflow-clip bg-slate-100", className)}>
+      <div className={cn("relative overflow-clip bg-brand-light/40", className)}>
         <Image
           src={image.src}
           alt=""
           fill
           sizes={
-            size === "large"
+            sizes ??
+            (size === "large"
               ? "(min-width: 1024px) 560px, 100vw"
-              : "(min-width: 1024px) 360px, 100vw"
+              : "(min-width: 1024px) 360px, 100vw")
           }
-          className="object-cover"
+          // Slow zoom when the surrounding card (`group`) is hovered.
+          className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
         />
       </div>
     );

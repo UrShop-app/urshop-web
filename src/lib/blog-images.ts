@@ -43,6 +43,13 @@ export function getBlogHeroImage(post: BlogPost) {
   return postImage(post, "hero");
 }
 
+export type BlogCardImageKind = "hero" | "square" | "fourThree";
+
+/** One of the article's images by shape, for cards and thumbnails; falls back to the hero. */
+export function getBlogCardImage(post: BlogPost, kind: BlogCardImageKind) {
+  return postImage(post, kind) ?? getBlogHeroImage(post);
+}
+
 /** Social preview: the dedicated 1200×630 image, else the hero. */
 export function getBlogSocialImage(post: BlogPost) {
   return postImage(post, "og") ?? getBlogHeroImage(post);

@@ -2,7 +2,7 @@ import { BlogClosingCta } from "@/components/blog/closing-cta";
 import { FeaturedPost } from "@/components/blog/featured-post";
 import { BlogHero } from "@/components/blog/index-hero";
 import { LatestPosts } from "@/components/blog/latest-posts";
-import { BlogTopics } from "@/components/blog/topics";
+import { ReadingPath } from "@/components/blog/reading-path";
 import { AmbientBackdrop } from "@/components/layout/ambient-backdrop";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -38,7 +38,7 @@ export default function BlogPage() {
         <BlogHero />
         <FeaturedPost post={featured} />
         <LatestPosts posts={getLatestBlogPosts(Infinity, { exclude: [featured.slug] })} />
-        <BlogTopics />
+        <ReadingPath />
         <BlogClosingCta />
       </main>
 

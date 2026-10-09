@@ -4,10 +4,11 @@ import { useRef, type ReactNode } from "react";
 
 import { AutoplayButton } from "@/components/ui/demo-controls";
 import { Icon, type IconName } from "@/components/ui/icon";
+import { PersonAvatar, type PersonPortrait } from "@/components/ui/person-avatar";
 import { useDemoAutoplay } from "@/lib/use-demo-autoplay";
 import { cn } from "@/lib/utils";
 
-import { Avatar, DemoFrame, PendingPill, Pill } from "./demo-kit";
+import { DemoFrame, PendingPill, Pill } from "./demo-kit";
 
 // 0: the team · 1: invite a new person by email · 2: they accept with their own login ·
 // 3: someone leaves and their account is suspended.
@@ -27,17 +28,16 @@ const CAPTIONS = [
 ];
 
 type Member = {
-  initials: string;
+  portrait: PersonPortrait;
   name: string;
   role: string;
-  color: string;
 };
 
 // Example people and roles, not real accounts.
-const OWNER: Member = { initials: "YO", name: "You", role: "Owner", color: "#0284c7" };
-const NADIA: Member = { initials: "NA", name: "Nadia", role: "Operations", color: "#0f766e" };
-const RAFI: Member = { initials: "RA", name: "Rafi", role: "Catalog", color: "#b45309" };
-const TANVIR: Member = { initials: "TA", name: "Tanvir", role: "Support", color: "#7c3aed" };
+const OWNER: Member = { portrait: "panjabi", name: "You", role: "Owner" };
+const NADIA: Member = { portrait: "hijab", name: "Nadia", role: "Operations" };
+const RAFI: Member = { portrait: "glasses", name: "Rafi", role: "Catalog" };
+const TANVIR: Member = { portrait: "creator", name: "Tanvir", role: "Support" };
 
 function MemberRow({
   member,
@@ -58,7 +58,7 @@ function MemberRow({
         className,
       )}
     >
-      <Avatar initials={member.initials} color={member.color} />
+      <PersonAvatar portrait={member.portrait} size={32} className="size-8" />
       <span className="min-w-0 flex-1">
         <span className="block text-sm font-bold text-slate-800">{member.name}</span>
         <span className="block text-xs text-slate-500">{member.role}</span>

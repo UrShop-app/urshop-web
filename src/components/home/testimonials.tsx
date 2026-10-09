@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { PersonAvatar, type PersonPortrait } from "@/components/ui/person-avatar";
 
 const testimonials = [
   {
@@ -6,26 +6,23 @@ const testimonials = [
       "We used to spend four hours every evening manually pasting customer addresses into Pathao and checking bKash transaction IDs. UrShop automated everything. Orders ship the same hour.",
     name: "Tanzeela Chowdhury",
     role: "Founder, Clay & Loom",
-    image:
-      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=120&h=120&q=80",
+    portrait: "jamdani",
   },
   {
     quote:
       "Selling digital presets across Bangladesh used to fail because global platforms do not take bKash. UrShop let me launch my digital shop in 10 minutes and receive funds directly.",
     name: "Sabbir Hossain",
     role: "Creator, PixelCraft Assets",
-    image:
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=120&h=120&q=80",
+    portrait: "creator",
   },
   {
     quote:
       "Direct Steadfast & RedX synchronization cut our courier return rate by 30%. Buyers receive automatic SMS notifications. It is genuinely the Shopify built for Bangladesh.",
     name: "Farhan Akhtar",
     role: "Co-founder, ModestWear BD",
-    image:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&h=120&q=80",
+    portrait: "glasses",
   },
-];
+] satisfies ReadonlyArray<{ quote: string; name: string; role: string; portrait: PersonPortrait }>;
 
 function TestimonialSet({ hidden = false }: { hidden?: boolean }) {
   return (
@@ -40,11 +37,9 @@ function TestimonialSet({ hidden = false }: { hidden?: boolean }) {
           </p>
           <div className="flex items-center justify-between border-t border-slate-100 pt-4">
             <div className="flex items-center gap-3">
-              <Image
-                src={testimonial.image}
-                alt={hidden ? "" : testimonial.name}
-                width={120}
-                height={120}
+              <PersonAvatar
+                portrait={testimonial.portrait}
+                size={40}
                 className="size-10 rounded-full border border-slate-200 object-cover"
               />
               <div>
@@ -59,7 +54,7 @@ function TestimonialSet({ hidden = false }: { hidden?: boolean }) {
   );
 }
 
-/** Founder testimonials repeat once to create the uninterrupted source marquee. */
+/** Illustrative merchant stories repeat once to create the uninterrupted source marquee. */
 export function Testimonials() {
   return (
     <section className="relative px-6 py-24 lg:px-12" id="testimonials">
@@ -67,16 +62,19 @@ export function Testimonials() {
         <div className="reveal mb-16 flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div>
             <span className="liquid-pill mb-1 inline-flex items-center justify-center rounded-full px-5 py-1.5 text-[12px] font-bold tracking-[0.18em] text-slate-600 uppercase select-none">
-              TESTIMONIALS
+              MERCHANT STORIES
             </span>
             <h2 className="mt-2 text-3xl font-extrabold text-slate-900 sm:text-4xl">
-              Voice of the Founders
+              Made for local entrepreneurs
             </h2>
+            <p className="mt-3 text-sm text-slate-500">
+              Illustrative stories with fictional names and AI-generated portraits.
+            </p>
           </div>
         </div>
         <div
           className="testimonial-marquee reveal reveal-delay-1"
-          aria-label="Customer testimonials"
+          aria-label="Illustrative merchant stories"
         >
           <div className="testimonial-track">
             <TestimonialSet />

@@ -5,6 +5,7 @@ import { useRef, useState } from "react";
 
 import { AutoplayButton, Segmented } from "@/components/ui/demo-controls";
 import { Icon, type IconName } from "@/components/ui/icon";
+import { PersonAvatar } from "@/components/ui/person-avatar";
 import { cn } from "@/lib/utils";
 
 import {
@@ -141,6 +142,11 @@ function CanvasBlock({ id, theme }: { id: BlockId; theme: ThemeId }) {
               style={{ background: look.soft, borderRadius: look.radius, color: look.muted }}
             >
               <Stars className="text-[0.8em]" />
+              <PersonAvatar
+                portrait={quote === 0 ? "founder" : "glasses"}
+                size={24}
+                className="size-[2em]"
+              />
               <Line />
               <Line className="w-2/3" />
             </span>

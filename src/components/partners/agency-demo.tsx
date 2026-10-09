@@ -4,6 +4,7 @@ import { useRef, type ReactNode } from "react";
 
 import { AutoplayButton } from "@/components/ui/demo-controls";
 import { Icon, type IconName } from "@/components/ui/icon";
+import { PersonAvatar } from "@/components/ui/person-avatar";
 import { useDemoAutoplay } from "@/lib/use-demo-autoplay";
 import { cn } from "@/lib/utils";
 
@@ -46,7 +47,7 @@ function AgencyBadge() {
 function Check({ delay }: { delay: number }) {
   return (
     <span
-      className="demo-pop ml-auto flex justify-center items-center size-5 shrink-0 rounded-full text-white"
+      className="demo-pop ml-auto flex size-5 shrink-0 items-center justify-center rounded-full text-white"
       style={{ ...at(delay), background: BRAND_GRADIENT }}
     >
       <Icon name="check" className="scale-[0.6]" />
@@ -210,12 +211,7 @@ function ManageVisual() {
         className="demo-in mt-3 flex items-center gap-3 rounded-xl bg-slate-50 p-2.5"
         style={at(0.2)}
       >
-        <span
-          className="grid size-8 shrink-0 place-items-center rounded-full text-[11px] font-extrabold text-white"
-          style={{ background: "#0f172a" }}
-        >
-          YA
-        </span>
+        <PersonAvatar portrait="founder" size={32} className="size-8" />
         <span className="min-w-0 flex-1">
           <span className="block text-sm font-bold text-slate-800">Your agency team</span>
           <span className="block truncate text-xs text-slate-500">team@youragency.example</span>

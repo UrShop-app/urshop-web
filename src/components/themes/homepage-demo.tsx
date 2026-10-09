@@ -5,6 +5,7 @@ import { useRef, useState, type ReactNode } from "react";
 
 import { AutoplayButton } from "@/components/ui/demo-controls";
 import { Icon } from "@/components/ui/icon";
+import { PersonAvatar } from "@/components/ui/person-avatar";
 import { cn } from "@/lib/utils";
 
 import { EXAMPLE_PRODUCTS, Line, ProductArt, ScaledMock, Stars } from "./demo-kit";
@@ -142,6 +143,11 @@ function SectionPreview({ id, hero }: { id: SectionId; hero: 0 | 1 }) {
               className="space-y-[0.5em] rounded-[0.6em] border border-slate-100 bg-white p-[0.9em] text-slate-400 shadow-sm"
             >
               <Stars className="text-[0.75em]" />
+              <PersonAvatar
+                portrait={quote === 0 ? "hijab" : "panjabi"}
+                size={24}
+                className="size-[2em]"
+              />
               <Line />
               <Line className="w-2/3" />
             </span>

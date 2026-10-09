@@ -1,14 +1,10 @@
-import Image from "next/image";
-
-import heroAvatar1 from "@/assets/home/hero-avatar-1.jpg";
-import heroAvatar2 from "@/assets/home/hero-avatar-2.jpg";
-import heroAvatar3 from "@/assets/home/hero-avatar-3.jpg";
 import { DiaText } from "@/components/ui/dia-text";
+import { PersonAvatar, type PersonPortrait } from "@/components/ui/person-avatar";
 
 import { HeroSignup } from "./hero-signup";
 import { ShopGrid, type ShopGridBeam, type ShopGridTile } from "@/components/ui/shop-grid";
 
-const eyebrowAvatars = [heroAvatar1, heroAvatar2, heroAvatar3];
+const eyebrowAvatars: readonly PersonPortrait[] = ["hijab", "panjabi", "founder"];
 
 // Kept clear of the headline column; `sm:hidden` tiles fill the narrow mobile viewport instead.
 const heroTiles: ReadonlyArray<ShopGridTile> = [
@@ -51,14 +47,14 @@ export function HeroBackdrop() {
 function EarningBadge({
   category,
   amount,
-  avatarUrl,
+  portrait,
   emoji,
   color,
   className,
 }: {
   category: string;
   amount: string;
-  avatarUrl: string;
+  portrait: PersonPortrait;
   emoji: string;
   color: string;
   className: string;
@@ -79,13 +75,7 @@ function EarningBadge({
           className="flex size-12 items-center justify-center overflow-hidden rounded-full shadow-inner ring-2 ring-white"
           style={{ backgroundColor: color }}
         >
-          <Image
-            src={avatarUrl}
-            alt=""
-            width={120}
-            height={120}
-            className="size-full object-cover"
-          />
+          <PersonAvatar portrait={portrait} size={48} className="size-full object-cover" />
         </div>
         <div className="absolute -right-1 -bottom-1 flex size-6 items-center justify-center rounded-full bg-white text-xs shadow-sm ring-2 ring-white">
           {emoji}
@@ -94,7 +84,7 @@ function EarningBadge({
       <div className="text-left">
         <p className="text-[11px] font-bold tracking-wider text-slate-500 uppercase">{category}</p>
         <p className="text-base leading-snug font-extrabold tracking-tight text-slate-900">
-          {amount} <span className="text-xs font-medium text-slate-500">earned</span>
+          {amount} <span className="text-xs font-medium text-slate-500">example sales</span>
         </p>
       </div>
     </div>
@@ -109,7 +99,7 @@ export function Hero() {
         <EarningBadge
           category="APPAREL BRAND"
           amount="৳34,200"
-          avatarUrl="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&h=120&q=80"
+          portrait="jamdani"
           emoji="🛍️"
           color="#E0F2FE"
           className="pointer-events-none absolute top-10 -left-12 z-10 -rotate-3"
@@ -117,7 +107,7 @@ export function Hero() {
         <EarningBadge
           category="DIGITAL CREATOR"
           amount="৳18,650"
-          avatarUrl="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&h=120&q=80"
+          portrait="creator"
           emoji="💻"
           color="#FEF3C7"
           className="hero-earning-badge-right pointer-events-none absolute top-10 -right-12 z-10 rotate-3"
@@ -126,10 +116,10 @@ export function Hero() {
         <div className="liquid-pill mb-8 inline-flex items-center gap-3 rounded-full px-4 py-1.5">
           <div className="flex -space-x-2">
             {eyebrowAvatars.map((avatar) => (
-              <Image
-                key={avatar.src}
-                src={avatar}
-                alt="User"
+              <PersonAvatar
+                key={avatar}
+                portrait={avatar}
+                size={20}
                 className="size-5 rounded-full object-cover ring-2 ring-white"
               />
             ))}
